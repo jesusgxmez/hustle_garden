@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HuertoApp.ViewModels"
+             x:Class="hustle_garden.MainPage"
+             Title="🌿 Mi Huerto Digital">
+
+    <Grid RowDefinitions="Auto, *" BackgroundColor="#F5F5F5">
+
+        <Frame Grid.Row="0" Margin="15" Padding="15" CornerRadius="15" HasShadow="True" BackgroundColor="White">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Añadir Nuevo Cultivo" FontAttributes="Bold" FontSize="18" TextColor="#2E7D32"/>
+
+                <Entry Placeholder="Nombre (ej. Albahaca)" 
+                       Text="{Binding NombreNuevaPlanta}" 
+                       PlaceholderColor="Gray" />
+
+                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
+                    <Button Grid.Column="0" 
+                            Text="📸 Tomar Foto" 
+                            Command="{Binding TomarFotoCommand}"
+                            BackgroundColor="#4CAF50"
+                            TextColor="White"/>
+
+                    <Border Grid.Column="1" StrokeShape="RoundRectangle 5" HeightRequest="45" WidthRequest="45">
+                        <Image Source="{Binding FotoTemporal}" Aspect="AspectFill" />
+                    </Border>
+                </Grid>
+
+                <Button Text="GUARDAR PLANTA" 
+                        Command="{Binding GuardarPlantaCommand}"
+                        BackgroundColor="#1B5E20"
+                        FontAttributes="Bold"
+                        Margin="0,5,0,0"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <CollectionView Grid.Row="1" 
+                        ItemsSource="{Binding Plantas}"
+                        EmptyView="No hay plantas aún. ¡Siembra algo!">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Borrar" 
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HuertoViewModel}}, Path=BorrarPlantaCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Frame Margin="15,5" Padding="0" CornerRadius="10" HasShadow="False" BorderColor="#E0E0E0">
+                            <Grid ColumnDefinitions="100, *" HeightRequest="100">
+
+                                <Image Grid.Column="0" 
+                                       Source="{Binding FotoPath}" 
+                                       Aspect="AspectFill" />
+
+                                <VerticalStackLayout Grid.Column="1" Padding="15" VerticalOptions="Center">
+                                    <Label Text="{Binding Nombre}" 
+                                           FontSize="18" 
+                                           FontAttributes="Bold" 
+                                           TextColor="#333"/>
+                                    <Label Text="{Binding FechaSiembra, StringFormat='Sembrado el {0:dd/MM/yyyy}'}" 
+                                           FontSize="13" 
+                                           TextColor="Gray"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
