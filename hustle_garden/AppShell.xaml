@@ -4,11 +4,25 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:hustle_garden"
-    Title="hustle_garden">
+    xmlns:views="clr-namespace:hustle_garden.Views"
+    Title="Huerto Digital">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Plantas" Icon="dotnet_bot.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+        </Tab>
+
+        <Tab Title="Tareas" Icon="dotnet_bot.png">
+            <ShellContent ContentTemplate="{DataTemplate views:TareasPage}" Route="TareasPage" />
+        </Tab>
+
+        <Tab Title="Notas" Icon="dotnet_bot.png">
+            <ShellContent ContentTemplate="{DataTemplate views:NotasPage}" Route="NotasPage" />
+        </Tab>
+
+        <Tab Title="Estadísticas" Icon="dotnet_bot.png">
+            <ShellContent ContentTemplate="{DataTemplate views:EstadisticasPage}" Route="EstadisticasPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

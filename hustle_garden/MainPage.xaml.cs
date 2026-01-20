@@ -4,12 +4,10 @@ namespace hustle_garden
 {
     public partial class MainPage : ContentPage
     {
-        HuertoViewModel viewModel;
-        public MainPage()
+        public MainPage(HuertoViewModel vm)
         {
             InitializeComponent();
-            BindingContext = viewModel;
+            BindingContext = vm;
         }
-
     }
 }

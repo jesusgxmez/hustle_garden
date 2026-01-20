@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="hustle_garden.Views.EstadisticasPage"
+             Title="Estadísticas">
+
+    <Grid>
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#E8F5E9" Offset="0.0"/>
+                    <GradientStop Color="#F1F8E9" Offset="1.0"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+        
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="20">
+
+                <HorizontalStackLayout Spacing="12">
+                    <Label Text="📊" FontSize="32" VerticalOptions="Center"/>
+                    <Label Text="Resumen del Huerto" 
+                           FontSize="28" 
+                           FontAttributes="Bold" 
+                           TextColor="#1B5E20"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto" ColumnSpacing="15" RowSpacing="15">
+
+                    <!-- Total Plantas -->
+                    <Border Grid.Row="0" Grid.Column="0" 
+                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#2E7D32" Offset="0.0"/>
+                                <GradientStop Color="#4CAF50" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#2E7D32" Offset="0,6" Radius="16" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" Padding="20">
+                            <Label Text="🌱" FontSize="32" HorizontalOptions="Center"/>
+                            <Label Text="{Binding TotalPlantas}" 
+                                   FontSize="48" 
+                                   FontAttributes="Bold" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Plantas Totales" 
+                                   FontSize="14" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.9"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Plantas Activas -->
+                    <Border Grid.Row="0" Grid.Column="1" 
+                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#4CAF50" Offset="0.0"/>
+                                <GradientStop Color="#81C784" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#4CAF50" Offset="0,6" Radius="16" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" Padding="20">
+                            <Label Text="🌿" FontSize="32" HorizontalOptions="Center"/>
+                            <Label Text="{Binding PlantasActivas}" 
+                                   FontSize="48" 
+                                   FontAttributes="Bold" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Activas" 
+                                   FontSize="14" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.9"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total Cosechas -->
+                    <Border Grid.Row="1" Grid.Column="0" 
+                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#F57C00" Offset="0.0"/>
+                                <GradientStop Color="#FFB74D" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#F57C00" Offset="0,6" Radius="16" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" Padding="20">
+                            <Label Text="🌽" FontSize="32" HorizontalOptions="Center"/>
+                            <Label Text="{Binding TotalCosechas}" 
+                                   FontSize="48" 
+                                   FontAttributes="Bold" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Cosechas" 
+                                   FontSize="14" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.9"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total Kg -->
+                    <Border Grid.Row="1" Grid.Column="1" 
+                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FF9800" Offset="0.0"/>
+                                <GradientStop Color="#FFB74D" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#FF9800" Offset="0,6" Radius="16" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" Padding="20">
+                            <Label Text="⚖️" FontSize="32" HorizontalOptions="Center"/>
+                            <Label Text="{Binding TotalKgCosechados, StringFormat='{0:F1}'}" 
+                                   FontSize="42" 
+                                   FontAttributes="Bold" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Kg Cosechados" 
+                                   FontSize="14" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.9"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Necesitan Riego -->
+                    <Border Grid.Row="2" Grid.Column="0" 
+                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#0277BD" Offset="0.0"/>
+                                <GradientStop Color="#4FC3F7" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#0277BD" Offset="0,6" Radius="16" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" Padding="20">
+                            <Label Text="💧" FontSize="32" HorizontalOptions="Center"/>
+                            <Label Text="{Binding PlantasQueNecesitanRiego}" 
+                                   FontSize="48" 
+                                   FontAttributes="Bold" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Necesitan Riego" 
+                                   FontSize="13" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.9"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Tareas Pendientes -->
+                    <Border Grid.Row="2" Grid.Column="1" 
+                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#D32F2F" Offset="0.0"/>
+                                <GradientStop Color="#F44336" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#D32F2F" Offset="0,6" Radius="16" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" Padding="20">
+                            <Label Text="✅" FontSize="32" HorizontalOptions="Center"/>
+                            <Label Text="{Binding TareasPendientes}" 
+                                   FontSize="48" 
+                                   FontAttributes="Bold" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Tareas Pendientes" 
+                                   FontSize="13" 
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.9"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                </Grid>
+
+                <!-- Cosechas por Mes -->
+                <Border StrokeShape="RoundRectangle 20" 
+                        StrokeThickness="0"
+                        BackgroundColor="White">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,6" Radius="16" Opacity="0.12"/>
+                    </Border.Shadow>
+                    
+                    <VerticalStackLayout Padding="20" Spacing="15">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="📈" FontSize="28" VerticalOptions="Center"/>
+                            <Label Text="Cosechas por Mes" 
+                                   FontSize="22" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#6A1B9A"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <CollectionView ItemsSource="{Binding CosechasPorMes}" 
+                                        EmptyView="📊 Sin datos de cosechas">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 12" 
+                                            Margin="0,4"
+                                            Padding="15"
+                                            BackgroundColor="#F3E5F5"
+                                            StrokeThickness="0">
+                                        <Grid ColumnDefinitions="*, Auto">
+                                            <Label Grid.Column="0" 
+                                                   Text="{Binding Mes}" 
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#6A1B9A"
+                                                   VerticalOptions="Center"/>
+                                            <Border Grid.Column="1"
+                                                    StrokeShape="RoundRectangle 10"
+                                                    Padding="12,6"
+                                                    BackgroundColor="#9C27B0"
+                                                    StrokeThickness="0">
+                                                <Label Text="{Binding Cantidad, StringFormat='{0:F1} kg'}" 
+                                                       FontSize="16"
+                                                       FontAttributes="Bold"
+                                                       TextColor="White"
+                                                       VerticalOptions="Center"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Plantas Más Productivas -->
+                <Border StrokeShape="RoundRectangle 20" 
+                        StrokeThickness="0"
+                        BackgroundColor="White">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,6" Radius="16" Opacity="0.12"/>
+                    </Border.Shadow>
+                    
+                    <VerticalStackLayout Padding="20" Spacing="15">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="🏆" FontSize="28" VerticalOptions="Center"/>
+                            <Label Text="Plantas Más Productivas" 
+                                   FontSize="22" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#F57C00"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <CollectionView ItemsSource="{Binding PlantasMasProductivas}" 
+                                        EmptyView="🌱 Sin datos de productividad">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 15" 
+                                            Margin="0,6"
+                                            StrokeThickness="0"
+                                            Padding="20">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#FFF3E0" Offset="0.0"/>
+                                                <GradientStop Color="#FFE0B2" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Border.Shadow>
+                                            <Shadow Brush="#FF9800" Offset="0,3" Radius="8" Opacity="0.15"/>
+                                        </Border.Shadow>
+                                        
+                                        <VerticalStackLayout Spacing="8">
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Label Text="🌱" FontSize="24"/>
+                                                <Label Text="{Binding NombrePlanta}" 
+                                                       FontSize="20" 
+                                                       FontAttributes="Bold"
+                                                       TextColor="#E65100"
+                                                       VerticalOptions="Center"/>
+                                            </HorizontalStackLayout>
+                                            
+                                            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                                                <Border Grid.Column="0"
+                                                        StrokeShape="RoundRectangle 10"
+                                                        Padding="12,8"
+                                                        BackgroundColor="#FF9800"
+                                                        StrokeThickness="0">
+                                                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                                                        <Label Text="⚖️" FontSize="16"/>
+                                                        <Label Text="{Binding TotalKg, StringFormat='{0:F2} kg'}" 
+                                                               TextColor="White" 
+                                                               FontSize="15"
+                                                               FontAttributes="Bold"/>
+                                                    </HorizontalStackLayout>
+                                                </Border>
+                                                
+                                                <Border Grid.Column="1"
+                                                        StrokeShape="RoundRectangle 10"
+                                                        Padding="12,8"
+                                                        BackgroundColor="#FFA726"
+                                                        StrokeThickness="0">
+                                                    <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                                                        <Label Text="🌽" FontSize="16"/>
+                                                        <Label Text="{Binding NumeroCosechas}" 
+                                                               TextColor="White" 
+                                                               FontSize="15"
+                                                               FontAttributes="Bold"/>
+                                                    </HorizontalStackLayout>
+                                                </Border>
+                                            </Grid>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 18" 
+                        StrokeThickness="0"
+                        Margin="0,10,0,20">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1B5E20" Offset="0.0"/>
+                            <GradientStop Color="#2E7D32" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#1B5E20" Offset="0,6" Radius="12" Opacity="0.3"/>
+                    </Border.Shadow>
+                    <Button Text="🔄 Refrescar Datos" 
+                            Command="{Binding RefrescarCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            Padding="0,14"/>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

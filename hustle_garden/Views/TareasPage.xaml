@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HuertoApp.ViewModels"
+             x:Class="hustle_garden.Views.TareasPage"
+             Title="Tareas">
+
+    <Grid RowDefinitions="Auto, *">
+        <BoxView Grid.RowSpan="2">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#E8F5E9" Offset="0.0"/>
+                    <GradientStop Color="#F1F8E9" Offset="1.0"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Formulario Nueva Tarea -->
+        <Border Grid.Row="0" 
+                Margin="20,15,20,10" 
+                StrokeShape="RoundRectangle 20" 
+                StrokeThickness="0"
+                BackgroundColor="White">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,6" Radius="16" Opacity="0.12"/>
+            </Border.Shadow>
+            
+            <VerticalStackLayout Spacing="15" Padding="20">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="✨" FontSize="28" VerticalOptions="Center"/>
+                    <Label Text="Nueva Tarea" 
+                           FontAttributes="Bold" 
+                           FontSize="24" 
+                           TextColor="#1B5E20"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Entry Placeholder="📋 Título de la tarea" 
+                           Text="{Binding TituloNuevaTarea}"
+                           PlaceholderColor="#66BB6A"
+                           TextColor="#1B5E20"
+                           FontSize="16"
+                           Margin="10,8"/>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Editor Placeholder="📝 Descripción (opcional)" 
+                            Text="{Binding DescripcionNuevaTarea}" 
+                            HeightRequest="70"
+                            PlaceholderColor="#66BB6A"
+                            TextColor="#1B5E20"
+                            Margin="10,8"/>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Picker Title="🌱 Planta relacionada (opcional)" 
+                            ItemsSource="{Binding Plantas}"
+                            ItemDisplayBinding="{Binding Nombre}"
+                            SelectedItem="{Binding PlantaSeleccionada}"
+                            TextColor="#1B5E20"
+                            TitleColor="#66BB6A"
+                            Margin="5,0"/>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Picker Title="⭐ Prioridad" 
+                            SelectedItem="{Binding PrioridadNueva}"
+                            TextColor="#1B5E20"
+                            TitleColor="#66BB6A"
+                            Margin="5,0">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Baja</x:String>
+                                <x:String>Media</x:String>
+                                <x:String>Alta</x:String>
+                                <x:String>Urgente</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 18" 
+                        StrokeThickness="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1B5E20" Offset="0.0"/>
+                            <GradientStop Color="#2E7D32" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#1B5E20" Offset="0,6" Radius="12" Opacity="0.3"/>
+                    </Border.Shadow>
+                    <Button Text="➕ AGREGAR TAREA" 
+                            Command="{Binding AgregarTareaCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            Padding="0,12"/>
+                </Border>
+            </VerticalStackLayout>
+        </Border>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="15" Padding="15,0,15,15">
+
+                <Frame Padding="15" CornerRadius="15" HasShadow="True" BackgroundColor="White">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Tareas Pendientes" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="#FF6F00"/>
+
+                        <CollectionView ItemsSource="{Binding TareasPendientes}" 
+                                        EmptyView="Todo al dia">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <SwipeView>
+                                        <SwipeView.RightItems>
+                                            <SwipeItems>
+                                                <SwipeItem Text="Eliminar" 
+                                                           BackgroundColor="Red"
+                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TareasViewModel}}, Path=EliminarTareaCommand}"
+                                                           CommandParameter="{Binding .}"/>
+                                            </SwipeItems>
+                                        </SwipeView.RightItems>
+
+                                        <Frame Margin="0,5" Padding="10" BorderColor="#E0E0E0">
+                                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                                <CheckBox Grid.Column="0" 
+                                                          IsChecked="{Binding Completada}"
+                                                          Color="#4CAF50"
+                                                          CheckedChanged="OnCheckboxChanged"
+                                                          VerticalOptions="Center"/>
+
+                                                <VerticalStackLayout Grid.Column="1" Spacing="3">
+                                                    <Label Text="{Binding Titulo}" 
+                                                           FontAttributes="Bold" 
+                                                           FontSize="16"/>
+                                                    <Label Text="{Binding Descripcion}" 
+                                                           TextColor="Gray" 
+                                                           FontSize="13"
+                                                           IsVisible="{Binding Descripcion, Converter={StaticResource StringNotNullOrEmptyConverter}}"/>
+                                                    <Label Text="{Binding Planta.Nombre, StringFormat='Planta: {0}'}" 
+                                                           TextColor="#4CAF50" 
+                                                           FontSize="13"
+                                                           IsVisible="{Binding Planta, Converter={StaticResource IsNotNullConverter}}"/>
+                                                    <Label Text="{Binding Prioridad, StringFormat='Prioridad: {0}'}" 
+                                                           TextColor="#FF6F00" 
+                                                           FontSize="12"
+                                                           FontAttributes="Bold"/>
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </SwipeView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Padding="15" CornerRadius="15" HasShadow="True" BackgroundColor="White">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Tareas Completadas" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="#4CAF50"/>
+
+                        <CollectionView ItemsSource="{Binding TareasCompletadas}" 
+                                        EmptyView="No hay tareas completadas">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Margin="0,5" Padding="10" BorderColor="#E0E0E0" Opacity="0.7">
+                                        <VerticalStackLayout Spacing="3">
+                                            <Label Text="{Binding Titulo}" 
+                                                   FontAttributes="Bold" 
+                                                   TextDecorations="Strikethrough"/>
+                                            <Label Text="{Binding Descripcion}" 
+                                                   TextColor="Gray" 
+                                                   FontSize="13"
+                                                   TextDecorations="Strikethrough"/>
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

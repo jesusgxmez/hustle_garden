@@ -3,75 +3,260 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HuertoApp.ViewModels"
              x:Class="hustle_garden.MainPage"
-             Title="🌿 Mi Huerto Digital">
+             Title="🌱 Mis Plantas">
 
-    <Grid RowDefinitions="Auto, *" BackgroundColor="#F5F5F5">
+    <Grid RowDefinitions="Auto, *">
+        
+        <!-- Fondo con gradiente -->
+        <BoxView Grid.RowSpan="2">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#E8F5E9" Offset="0.0"/>
+                    <GradientStop Color="#F1F8E9" Offset="1.0"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
 
-        <Frame Grid.Row="0" Margin="15" Padding="15" CornerRadius="15" HasShadow="True" BackgroundColor="White">
-            <VerticalStackLayout Spacing="10">
-                <Label Text="Añadir Nuevo Cultivo" FontAttributes="Bold" FontSize="18" TextColor="#2E7D32"/>
+        <!-- Formulario para nueva planta -->
+        <Frame Grid.Row="0" Margin="20,15" Padding="20" CornerRadius="20" HasShadow="True">
+            <Frame.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="White" Offset="0.0"/>
+                    <GradientStop Color="#F9FBE7" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Frame.Background>
+            
+            <VerticalStackLayout Spacing="12">
+                <Label Text="🌿 Añadir Nueva Planta" 
+                       FontAttributes="Bold" 
+                       FontSize="22" 
+                       TextColor="#1B5E20"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,10"/>
 
-                <Entry Placeholder="Nombre (ej. Albahaca)" 
-                       Text="{Binding NombreNuevaPlanta}" 
-                       PlaceholderColor="Gray" />
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Entry Placeholder="🌱 Nombre de la planta" 
+                           Text="{Binding NombreNuevaPlanta}" 
+                           PlaceholderColor="#81C784"
+                           TextColor="#1B5E20"
+                           FontSize="16"
+                           Margin="10,8"/>
+                </Border>
 
-                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="10">
-                    <Button Grid.Column="0" 
-                            Text="📸 Tomar Foto" 
-                            Command="{Binding TomarFotoCommand}"
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Entry Placeholder="🌿 Variedad (ej. Cherry)" 
+                           Text="{Binding VariedadNuevaPlanta}" 
+                           PlaceholderColor="#81C784"
+                           TextColor="#1B5E20"
+                           FontSize="16"
+                           Margin="10,8"/>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Entry Placeholder="📍 Ubicación (ej. Parcela A)" 
+                           Text="{Binding UbicacionNuevaPlanta}" 
+                           PlaceholderColor="#81C784"
+                           TextColor="#1B5E20"
+                           FontSize="16"
+                           Margin="10,8"/>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <HorizontalStackLayout Spacing="10" Margin="10,8">
+                        <Label Text="⏱️ Días hasta cosecha:" 
+                               VerticalOptions="Center"
+                               TextColor="#2E7D32"
+                               FontSize="15"/>
+                        <Entry Text="{Binding DiasHastaCosecha}" 
+                               Keyboard="Numeric" 
+                               WidthRequest="80"
+                               TextColor="#1B5E20"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <Grid ColumnDefinitions="*,*,Auto" ColumnSpacing="12" Margin="0,5,0,0">
+                    <Border Grid.Column="0" 
+                            StrokeShape="RoundRectangle 15"
                             BackgroundColor="#4CAF50"
-                            TextColor="White"/>
+                            StrokeThickness="0">
+                        <Border.Shadow>
+                            <Shadow Brush="#4CAF50" Offset="0,4" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Button Text="📸 Tomar Foto" 
+                                Command="{Binding TomarFotoCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="14"/>
+                    </Border>
 
-                    <Border Grid.Column="1" StrokeShape="RoundRectangle 5" HeightRequest="45" WidthRequest="45">
-                        <Image Source="{Binding FotoTemporal}" Aspect="AspectFill" />
+                    <Border Grid.Column="1" 
+                            StrokeShape="RoundRectangle 15"
+                            BackgroundColor="#66BB6A"
+                            StrokeThickness="0">
+                        <Border.Shadow>
+                            <Shadow Brush="#66BB6A" Offset="0,4" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Button Text="🖼️ Galería" 
+                                Command="{Binding SeleccionarGaleriaCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="14"/>
+                    </Border>
+
+                    <Border Grid.Column="2" 
+                            StrokeShape="RoundRectangle 12" 
+                            Stroke="#4CAF50"
+                            StrokeThickness="3"
+                            HeightRequest="55" 
+                            WidthRequest="55"
+                            BackgroundColor="White">
+                        <Image Source="{Binding FotoTemporal}" 
+                               Aspect="AspectFill"/>
                     </Border>
                 </Grid>
 
-                <Button Text="GUARDAR PLANTA" 
-                        Command="{Binding GuardarPlantaCommand}"
-                        BackgroundColor="#1B5E20"
-                        FontAttributes="Bold"
-                        Margin="0,5,0,0"/>
+                <Border StrokeShape="RoundRectangle 18" 
+                        StrokeThickness="0"
+                        Margin="0,10,0,0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1B5E20" Offset="0.0"/>
+                            <GradientStop Color="#2E7D32" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#1B5E20" Offset="0,6" Radius="12" Opacity="0.4"/>
+                    </Border.Shadow>
+                    <Button Text="✨ GUARDAR PLANTA" 
+                            Command="{Binding GuardarPlantaCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Padding="0,12"/>
+                </Border>
             </VerticalStackLayout>
         </Frame>
 
-        <CollectionView Grid.Row="1" 
-                        ItemsSource="{Binding Plantas}"
-                        EmptyView="No hay plantas aún. ¡Siembra algo!">
+        <!-- Lista de plantas -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,0,20,20" Spacing="15">
+                
+                <Label Text="🌺 Tus Plantas" 
+                       FontSize="24" 
+                       FontAttributes="Bold" 
+                       TextColor="#1B5E20"
+                       Margin="0,10,0,5"/>
+                
+                <CollectionView ItemsSource="{Binding Plantas}"
+                                EmptyView="🌱 No hay plantas aún. ¡Siembra algo hermoso!">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView Margin="0,0,0,12">
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="🗑️ Borrar" 
+                                                   BackgroundColor="#E53935"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HuertoViewModel}}, Path=BorrarPlantaCommand}"
+                                                   CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItems>
-                                <SwipeItem Text="Borrar" 
-                                           BackgroundColor="Red"
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HuertoViewModel}}, Path=BorrarPlantaCommand}"
-                                           CommandParameter="{Binding .}"/>
-                            </SwipeItems>
-                        </SwipeView.RightItems>
+                                <Border StrokeShape="RoundRectangle 20" 
+                                        StrokeThickness="0"
+                                        BackgroundColor="White">
+                                    <Border.Shadow>
+                                        <Shadow Brush="Black" Offset="0,4" Radius="16" Opacity="0.1"/>
+                                    </Border.Shadow>
+                                    
+                                    <Grid ColumnDefinitions="140, *" 
+                                          RowDefinitions="Auto"
+                                          MinimumHeightRequest="140">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HuertoViewModel}}, Path=VerDetallePlantaCommand}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Grid.GestureRecognizers>
 
-                        <Frame Margin="15,5" Padding="0" CornerRadius="10" HasShadow="False" BorderColor="#E0E0E0">
-                            <Grid ColumnDefinitions="100, *" HeightRequest="100">
+                                        <!-- Imagen con gradiente overlay -->
+                                        <Border Grid.Column="0" 
+                                                StrokeShape="RoundRectangle 20,0,0,20"
+                                                StrokeThickness="0">
+                                            <Grid>
+                                                <Image Source="{Binding FotoPath}" 
+                                                       Aspect="AspectFill"/>
+                                                <BoxView Opacity="0.3">
+                                                    <BoxView.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Color="Transparent" Offset="0.0"/>
+                                                            <GradientStop Color="#1B5E20" Offset="1.0"/>
+                                                        </LinearGradientBrush>
+                                                    </BoxView.Background>
+                                                </BoxView>
+                                            </Grid>
+                                        </Border>
 
-                                <Image Grid.Column="0" 
-                                       Source="{Binding FotoPath}" 
-                                       Aspect="AspectFill" />
-
-                                <VerticalStackLayout Grid.Column="1" Padding="15" VerticalOptions="Center">
-                                    <Label Text="{Binding Nombre}" 
-                                           FontSize="18" 
-                                           FontAttributes="Bold" 
-                                           TextColor="#333"/>
-                                    <Label Text="{Binding FechaSiembra, StringFormat='Sembrado el {0:dd/MM/yyyy}'}" 
-                                           FontSize="13" 
-                                           TextColor="Gray"/>
-                                </VerticalStackLayout>
-                            </Grid>
-                        </Frame>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                        <!-- Contenido -->
+                                        <VerticalStackLayout Grid.Column="1" 
+                                                             Padding="18,15" 
+                                                             Spacing="8"
+                                                             VerticalOptions="Center">
+                                            <Label Text="{Binding Nombre}" 
+                                                   FontSize="22" 
+                                                   FontAttributes="Bold" 
+                                                   TextColor="#1B5E20"
+                                                   LineBreakMode="TailTruncation"/>
+                                            
+                                            <Label Text="{Binding Variedad, StringFormat='🌱 {0}'}" 
+                                                   FontSize="15" 
+                                                   TextColor="#4CAF50"
+                                                   FontAttributes="Bold"
+                                                   IsVisible="{Binding Variedad, Converter={StaticResource StringNotNullOrEmptyConverter}}"/>
+                                            
+                                            <Border StrokeShape="RoundRectangle 10" 
+                                                    Padding="12,6" 
+                                                    BackgroundColor="#E8F5E9"
+                                                    StrokeThickness="0"
+                                                    HorizontalOptions="Start">
+                                                <Label Text="{Binding Estado}" 
+                                                       FontSize="13" 
+                                                       TextColor="#2E7D32"
+                                                       FontAttributes="Bold"/>
+                                            </Border>
+                                            
+                                            <Label Text="{Binding FechaSiembra, StringFormat='📅 Sembrada: {0:dd/MM/yyyy}'}" 
+                                                   FontSize="13" 
+                                                   TextColor="#666"
+                                                   Margin="0,4,0,0"/>
+                                            
+                                            <Label Text="{Binding Ubicacion, StringFormat='📍 {0}'}" 
+                                                   FontSize="13" 
+                                                   TextColor="#666"
+                                                   IsVisible="{Binding Ubicacion, Converter={StaticResource StringNotNullOrEmptyConverter}}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>

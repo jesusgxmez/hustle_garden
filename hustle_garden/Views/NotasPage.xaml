@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HuertoApp.ViewModels"
+             x:Class="hustle_garden.Views.NotasPage"
+             Title="Notas del Huerto">
+
+    <Grid RowDefinitions="Auto, *">
+        <BoxView Grid.RowSpan="2">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#E8F5E9" Offset="0.0"/>
+                    <GradientStop Color="#F1F8E9" Offset="1.0"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <Border Grid.Row="0" 
+                Margin="20,15,20,10" 
+                StrokeShape="RoundRectangle 20" 
+                StrokeThickness="0"
+                BackgroundColor="White">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,6" Radius="16" Opacity="0.12"/>
+            </Border.Shadow>
+            
+            <VerticalStackLayout Spacing="15" Padding="20">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="📝" FontSize="28" VerticalOptions="Center"/>
+                    <Label Text="Nueva Nota" 
+                           FontAttributes="Bold" 
+                           FontSize="24" 
+                           TextColor="#1B5E20"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Entry Placeholder="✍️ Título de la nota" 
+                           Text="{Binding TituloNuevaNota}"
+                           PlaceholderColor="#66BB6A"
+                           TextColor="#1B5E20"
+                           FontSize="16"
+                           Margin="10,8"/>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Editor Placeholder="💭 Escribe aquí el contenido de tu nota..." 
+                            Text="{Binding ContenidoNuevaNota}" 
+                            HeightRequest="100"
+                            PlaceholderColor="#66BB6A"
+                            TextColor="#1B5E20"
+                            Margin="10,8"/>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 12" 
+                        Stroke="#C8E6C9" 
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Picker Title="🏷️ Categoría" 
+                            SelectedItem="{Binding CategoriaNuevaNota}"
+                            TextColor="#1B5E20"
+                            TitleColor="#66BB6A"
+                            Margin="5,0">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>General</x:String>
+                                <x:String>Clima</x:String>
+                                <x:String>Plagas</x:String>
+                                <x:String>Fertilizacion</x:String>
+                                <x:String>Observacion</x:String>
+                                <x:String>Recordatorio</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Border>
+
+                <Grid ColumnDefinitions="*,*,Auto" ColumnSpacing="12">
+                    <Border Grid.Column="0" 
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#4CAF50"
+                            StrokeThickness="0">
+                        <Border.Shadow>
+                            <Shadow Brush="#4CAF50" Offset="0,4" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Button Text="📸 Foto" 
+                                Command="{Binding TomarFotoCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                FontAttributes="Bold"/>
+                    </Border>
+                    
+                    <Border Grid.Column="1" 
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#66BB6A"
+                            StrokeThickness="0">
+                        <Border.Shadow>
+                            <Shadow Brush="#66BB6A" Offset="0,4" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Button Text="🖼️ Galería" 
+                                Command="{Binding SeleccionarGaleriaCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                FontAttributes="Bold"/>
+                    </Border>
+
+                    <Border Grid.Column="2" 
+                            StrokeShape="RoundRectangle 10" 
+                            Stroke="#4CAF50"
+                            StrokeThickness="3"
+                            HeightRequest="50" 
+                            WidthRequest="50"
+                            BackgroundColor="White">
+                        <Image Source="{Binding FotoTemporal}" Aspect="AspectFill" />
+                    </Border>
+                </Grid>
+
+                <Border StrokeShape="RoundRectangle 18" 
+                        StrokeThickness="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#6A1B9A" Offset="0.0"/>
+                            <GradientStop Color="#8E24AA" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#6A1B9A" Offset="0,6" Radius="12" Opacity="0.3"/>
+                    </Border.Shadow>
+                    <Button Text="💾 GUARDAR NOTA" 
+                            Command="{Binding AgregarNotaCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            Padding="0,12"/>
+                </Border>
+            </VerticalStackLayout>
+        </Border>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,10,20,20" Spacing="15">
+                <HorizontalStackLayout Spacing="10" Margin="0,5,0,0">
+                    <Label Text="📚" FontSize="28" VerticalOptions="Center"/>
+                    <Label Text="Mis Notas" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="#1B5E20"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                
+                <CollectionView ItemsSource="{Binding Notas}"
+                                EmptyView="📝 No hay notas aún. ¡Empieza a escribir!">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView Margin="0,6">
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="🗑️" 
+                                                   BackgroundColor="#E53935"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EliminarNotaCommand}"
+                                                   CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+
+                                <Border StrokeShape="RoundRectangle 20" 
+                                        StrokeThickness="0"
+                                        BackgroundColor="White">
+                                    <Border.Shadow>
+                                        <Shadow Brush="Black" Offset="0,5" Radius="14" Opacity="0.1"/>
+                                    </Border.Shadow>
+                                    
+                                    <VerticalStackLayout Padding="20" Spacing="12">
+                                        <HorizontalStackLayout Spacing="10">
+                                            <Label Text="📄" FontSize="24" VerticalOptions="Center"/>
+                                            <Label Text="{Binding Titulo}" 
+                                                   FontSize="20" 
+                                                   FontAttributes="Bold" 
+                                                   TextColor="#1B5E20"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="FillAndExpand"/>
+                                        </HorizontalStackLayout>
+
+                                        <Border StrokeShape="RoundRectangle 10" 
+                                                Padding="12,6"
+                                                StrokeThickness="0"
+                                                HorizontalOptions="Start">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                    <GradientStop Color="#8E24AA" Offset="0.0"/>
+                                                    <GradientStop Color="#AB47BC" Offset="1.0"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <HorizontalStackLayout Spacing="6">
+                                                <Label Text="🏷️" FontSize="14"/>
+                                                <Label Text="{Binding Categoria}" 
+                                                       FontSize="13" 
+                                                       TextColor="White"
+                                                       FontAttributes="Bold"/>
+                                            </HorizontalStackLayout>
+                                        </Border>
+
+                                        <Label Text="{Binding Contenido}" 
+                                               FontSize="15" 
+                                               TextColor="#424242"
+                                               MaxLines="4"
+                                               LineBreakMode="TailTruncation"/>
+
+                                        <Border StrokeShape="RoundRectangle 12"
+                                                StrokeThickness="0"
+                                                IsVisible="{Binding FotoPath, Converter={StaticResource StringNotNullOrEmptyConverter}}">
+                                            <Image Source="{Binding FotoPath}" 
+                                                   Aspect="AspectFill" 
+                                                   HeightRequest="180"/>
+                                        </Border>
+
+                                        <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+                                            <Label Text="📅" FontSize="16"/>
+                                            <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy HH:mm}'}" 
+                                                   FontSize="13" 
+                                                   TextColor="#757575"
+                                                   VerticalOptions="Center"/>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

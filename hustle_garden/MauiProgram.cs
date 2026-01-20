@@ -1,5 +1,6 @@
 ﻿using HuertoApp.Data;
 using HuertoApp.ViewModels;
+using hustle_garden.Views;
 using Microsoft.Extensions.Logging;
 
 namespace hustle_garden
@@ -12,12 +13,19 @@ namespace hustle_garden
             builder
                 .UseMauiApp<App>();
 
-            // Registro del Contexto de EF Core
             builder.Services.AddDbContext<HuertoContext>();
 
-            // ViewModels y Páginas
             builder.Services.AddTransient<HuertoViewModel>();
+            builder.Services.AddTransient<DetallePlantaViewModel>();
+            builder.Services.AddTransient<TareasViewModel>();
+            builder.Services.AddTransient<EstadisticasViewModel>();
+            builder.Services.AddTransient<NotasViewModel>();
+
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<DetallePlantaPage>();
+            builder.Services.AddTransient<TareasPage>();
+            builder.Services.AddTransient<EstadisticasPage>();
+            builder.Services.AddTransient<NotasPage>();
 
             return builder.Build();
         }
