@@ -7,8 +7,6 @@
 
 **Hustle Garden 2** es una evolución sofisticada de nuestro rastreador de productividad multiplataforma. Utilizando **.NET MAUI**, esta aplicación gamifica la formación de hábitos, transformando el cumplimiento de tareas en el crecimiento de un ecosistema botánico digital. 
 
-> Este proyecto ha sido desarrollado específicamente para el **Tema 5: Interfaces Naturales y Experiencia de Usuario**.
-
 ---
 
 ## ✨ Características Principales
