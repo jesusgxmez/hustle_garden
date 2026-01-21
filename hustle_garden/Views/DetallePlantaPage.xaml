@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:HuertoApp.Converters"
              x:Class="hustle_garden.Views.DetallePlantaPage"
              Title="Detalle de Planta">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IsNotNullConverter x:Key="IsNotNullConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
         <BoxView>
@@ -90,13 +97,16 @@
                                         BackgroundColor="#E8F5E9"
                                         StrokeThickness="0">
                                     <VerticalStackLayout Spacing="4">
-                                        <Label Text="📍 Ubicación" 
+                                        <Label Text="UBICACION" 
                                                FontSize="12" 
                                                TextColor="#666"/>
-                                        <Label Text="{Binding Planta.Ubicacion}" 
-                                               FontSize="15" 
-                                               TextColor="#2E7D32"
-                                               FontAttributes="Bold"/>
+                                        <HorizontalStackLayout Spacing="4">
+                                            <Label Text="📍" FontSize="14"/>
+                                            <Label Text="{Binding Planta.Ubicacion}" 
+                                                   FontSize="15" 
+                                                   TextColor="#2E7D32"
+                                                   FontAttributes="Bold"/>
+                                        </HorizontalStackLayout>
                                     </VerticalStackLayout>
                                 </Border>
                                 
@@ -109,7 +119,7 @@
                                         <Label Text="📅 Días sembrada" 
                                                FontSize="12" 
                                                TextColor="#666"/>
-                                        <Label Text="{Binding Planta.DiasDesdeSelecci�n}" 
+                                        <Label Text="{Binding Planta.DiasDesdeSelección}" 
                                                FontSize="15" 
                                                TextColor="#F57C00"
                                                FontAttributes="Bold"/>
@@ -129,13 +139,21 @@
                                 <Border.Shadow>
                                     <Shadow Brush="#2E7D32" Offset="0,6" Radius="12" Opacity="0.3"/>
                                 </Border.Shadow>
-                                <Button Text="🔄 Cambiar Estado" 
+                                <Button Text="CAMBIAR ESTADO" 
                                         Command="{Binding CambiarEstadoCommand}"
                                         BackgroundColor="Transparent"
                                         TextColor="White"
                                         FontAttributes="Bold"
                                         FontSize="16"
-                                        Padding="0,14"/>
+                                        Padding="0,14">
+                                    <Button.ImageSource>
+                                        <FontImageSource 
+                                            Glyph="🔄" 
+                                            FontFamily="Arial"
+                                            Size="18"
+                                            Color="White"/>
+                                    </Button.ImageSource>
+                                </Button>
                             </Border>
                         </VerticalStackLayout>
                     </Grid>
@@ -170,7 +188,7 @@
                                         StrokeThickness="0"
                                         HorizontalOptions="FillAndExpand"
                                         Padding="5">
-                                    <Entry Placeholder="💧 Litros de agua" 
+                                    <Entry Placeholder="Litros de agua" 
                                            Text="{Binding CantidadRiegoNuevo}" 
                                            Keyboard="Numeric"
                                            HorizontalOptions="FillAndExpand"
@@ -263,14 +281,14 @@
                                 Stroke="#FFE0B2" 
                                 StrokeThickness="2"
                                 BackgroundColor="White">
-                            <Entry Placeholder="⚖️ Cantidad en kg" 
-                                   Text="{Binding CantidadCosechaNueva}" 
-                                   Keyboard="Numeric"
-                                   PlaceholderColor="#F57C00"
-                                   TextColor="#E65100"
-                                   FontSize="16"
-                                   FontAttributes="Bold"
-                                   Margin="10,8"/>
+                    <Entry Placeholder="Cantidad en kg" 
+                           Text="{Binding CantidadCosechaNueva}" 
+                           Keyboard="Numeric"
+                           PlaceholderColor="#F57C00"
+                           TextColor="#E65100"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           Margin="10,8"/>
                         </Border>
 
                         <Border StrokeShape="RoundRectangle 12" 
@@ -278,7 +296,7 @@
                                 StrokeThickness="2"
                                 BackgroundColor="White">
                             <Picker Title="⭐ Selecciona la calidad" 
-                                    SelectedItem="{Binding CalidadCosechaNueva}"
+                                    SelectedIndex="{Binding SelectedIndexCalidad}"
                                     TextColor="#E65100"
                                     TitleColor="#F57C00"
                                     FontSize="16"
@@ -298,32 +316,78 @@
                                 Stroke="#FFE0B2" 
                                 StrokeThickness="2"
                                 BackgroundColor="White">
-                            <Editor Placeholder="📝 Notas adicionales (opcional)" 
-                                    Text="{Binding NotasCosechaNueva}" 
-                                    HeightRequest="80"
-                                    PlaceholderColor="#F57C00"
-                                    TextColor="#E65100"
-                                    Margin="10,8"/>
+                    <Editor Placeholder="Notas adicionales (opcional)" 
+                            Text="{Binding NotasCosechaNueva}" 
+                            HeightRequest="80"
+                            PlaceholderColor="#F57C00"
+                            TextColor="#E65100"
+                            Margin="10,8"/>
                         </Border>
 
-                        <Border StrokeShape="RoundRectangle 15" 
-                                StrokeThickness="0">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                    <GradientStop Color="#66BB6A" Offset="0.0"/>
-                                    <GradientStop Color="#81C784" Offset="1.0"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <Border.Shadow>
-                                <Shadow Brush="#66BB6A" Offset="0,4" Radius="8" Opacity="0.3"/>
-                            </Border.Shadow>
-                            <Button Text="📸 Tomar Foto de Cosecha" 
-                                    Command="{Binding TomarFotoCosechaCommand}"
-                                    BackgroundColor="Transparent"
-                                    TextColor="White"
-                                    FontAttributes="Bold"
-                                    FontSize="15"/>
-                        </Border>
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                            <Border Grid.Column="0"
+                                    StrokeShape="RoundRectangle 12" 
+                                    StrokeThickness="0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#66BB6A" Offset="0.0"/>
+                                        <GradientStop Color="#81C784" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Shadow>
+                                    <Shadow Brush="#66BB6A" Offset="0,3" Radius="6" Opacity="0.3"/>
+                                </Border.Shadow>
+                                <Button Text="📸 Cámara" 
+                                        Command="{Binding TomarFotoCosechaCommand}"
+                                        BackgroundColor="Transparent"
+                                        TextColor="White"
+                                        FontAttributes="Bold"
+                                        FontSize="13"
+                                        Padding="8,10"/>
+                            </Border>
+                            
+                            <Border Grid.Column="1"
+                                    StrokeShape="RoundRectangle 12" 
+                                    StrokeThickness="0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#42A5F5" Offset="0.0"/>
+                                        <GradientStop Color="#64B5F6" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Shadow>
+                                    <Shadow Brush="#42A5F5" Offset="0,3" Radius="6" Opacity="0.3"/>
+                                </Border.Shadow>
+                                <Button Text="🖼️ Galería" 
+                                        Command="{Binding SeleccionarFotoCosechaGaleriaCommand}"
+                                        BackgroundColor="Transparent"
+                                        TextColor="White"
+                                        FontAttributes="Bold"
+                                        FontSize="13"
+                                        Padding="8,10"/>
+                            </Border>
+                            
+                            <Border Grid.Column="2"
+                                    StrokeShape="RoundRectangle 12" 
+                                    StrokeThickness="0">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#AB47BC" Offset="0.0"/>
+                                        <GradientStop Color="#BA68C8" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Shadow>
+                                    <Shadow Brush="#AB47BC" Offset="0,3" Radius="6" Opacity="0.3"/>
+                                </Border.Shadow>
+                                <Button Text="📁 Archivo" 
+                                        Command="{Binding SeleccionarFotoCosechaArchivoCommand}"
+                                        BackgroundColor="Transparent"
+                                        TextColor="White"
+                                        FontAttributes="Bold"
+                                        FontSize="13"
+                                        Padding="8,10"/>
+                            </Border>
+                        </Grid>
 
                         <Border StrokeShape="RoundRectangle 18" 
                                 StrokeThickness="0"
@@ -337,13 +401,21 @@
                             <Border.Shadow>
                                 <Shadow Brush="#F57C00" Offset="0,6" Radius="12" Opacity="0.4"/>
                             </Border.Shadow>
-                            <Button Text="✨ REGISTRAR COSECHA" 
-                                    Command="{Binding RegistrarCosechaCommand}"
-                                    BackgroundColor="Transparent"
-                                    TextColor="White"
-                                    FontAttributes="Bold"
-                                    FontSize="17"
-                                    Padding="0,14"/>
+                    <Button Text="REGISTRAR COSECHA" 
+                            Command="{Binding RegistrarCosechaCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="17"
+                            Padding="0,14">
+                        <Button.ImageSource>
+                            <FontImageSource 
+                                Glyph="✨" 
+                                FontFamily="Arial"
+                                Size="18"
+                                Color="White"/>
+                        </Button.ImageSource>
+                    </Button>
                         </Border>
                     </VerticalStackLayout>
                 </Border>
@@ -384,37 +456,69 @@
                                             <Shadow Brush="#FBC02D" Offset="0,3" Radius="8" Opacity="0.2"/>
                                         </Border.Shadow>
                                         
-                                        <VerticalStackLayout Spacing="8">
-                                            <HorizontalStackLayout Spacing="10">
-                                                <Label Text="📅" FontSize="18"/>
-                                                <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
-                                                       FontAttributes="Bold"
-                                                       FontSize="16"
-                                                       TextColor="#F57F17"/>
-                                            </HorizontalStackLayout>
+                                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="15">
+                                            <!-- Imagen de la cosecha -->
+                                            <Border Grid.Column="0"
+                                                    StrokeShape="RoundRectangle 12"
+                                                    StrokeThickness="0"
+                                                    WidthRequest="100"
+                                                    HeightRequest="100"
+                                                    BackgroundColor="#FFF3E0"
+                                                    IsVisible="{Binding FotoPath, Converter={StaticResource IsNotNullConverter}}">
+                                                <Image Source="{Binding FotoPath}" 
+                                                       Aspect="AspectFill"/>
+                                            </Border>
                                             
-                                            <HorizontalStackLayout Spacing="10">
-                                                <Label Text="⚖️" FontSize="18"/>
-                                                <Label Text="{Binding CantidadKg, StringFormat='{0:F2} kg'}" 
-                                                       TextColor="#FF6F00"
-                                                       FontSize="18"
-                                                       FontAttributes="Bold"/>
-                                            </HorizontalStackLayout>
+                                            <!-- Placeholder si no hay imagen -->
+                                            <Border Grid.Column="0"
+                                                    StrokeShape="RoundRectangle 12"
+                                                    StrokeThickness="2"
+                                                    Stroke="#FFE0B2"
+                                                    WidthRequest="100"
+                                                    HeightRequest="100"
+                                                    BackgroundColor="#FFF8E1"
+                                                    IsVisible="{Binding FotoPath, Converter={StaticResource IsNotNullConverter}, ConverterParameter=Invert}">
+                                                <Label Text="🌾" 
+                                                       FontSize="40"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"
+                                                       Opacity="0.4"/>
+                                            </Border>
                                             
-                                            <HorizontalStackLayout Spacing="10">
-                                                <Label Text="⭐" FontSize="18"/>
-                                                <Label Text="{Binding Calidad}" 
-                                                       TextColor="#E65100"
-                                                       FontSize="15"
-                                                       FontAttributes="Bold"/>
-                                            </HorizontalStackLayout>
-                                            
-                                            <Label Text="{Binding Notas}" 
-                                                   TextColor="#6D4C41"
-                                                   FontSize="14"
-                                                   Margin="28,4,0,0"
-                                                   LineBreakMode="WordWrap"/>
-                                        </VerticalStackLayout>
+                                            <!-- Información de la cosecha -->
+                                            <VerticalStackLayout Grid.Column="1" Spacing="8">
+                                                <HorizontalStackLayout Spacing="10">
+                                                    <Label Text="📅" FontSize="18"/>
+                                                    <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
+                                                           FontAttributes="Bold"
+                                                           FontSize="16"
+                                                           TextColor="#F57F17"/>
+                                                </HorizontalStackLayout>
+                                                
+                                                <HorizontalStackLayout Spacing="10">
+                                                    <Label Text="⚖️" FontSize="18"/>
+                                                    <Label Text="{Binding CantidadKg, StringFormat='{0:F2} kg'}" 
+                                                           TextColor="#FF6F00"
+                                                           FontSize="18"
+                                                           FontAttributes="Bold"/>
+                                                </HorizontalStackLayout>
+                                                
+                                                <HorizontalStackLayout Spacing="10">
+                                                    <Label Text="⭐" FontSize="18"/>
+                                                    <Label Text="{Binding Calidad}" 
+                                                           TextColor="#E65100"
+                                                           FontSize="15"
+                                                           FontAttributes="Bold"/>
+                                                </HorizontalStackLayout>
+                                                
+                                                <Label Text="{Binding Notas}" 
+                                                       TextColor="#6D4C41"
+                                                       FontSize="14"
+                                                       Margin="0,4,0,0"
+                                                       LineBreakMode="WordWrap"
+                                                       MaxLines="3"/>
+                                            </VerticalStackLayout>
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

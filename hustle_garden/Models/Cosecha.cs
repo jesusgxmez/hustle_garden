@@ -11,12 +11,12 @@ public class Cosecha
     public int PlantaId { get; set; }
     public DateTime Fecha { get; set; }
     public double CantidadKg { get; set; }
-    public CalidadCosecha Calidad { get; set; } = CalidadCosecha.Buena;
+    public CalidadCosecha Calidad { get; set; }
     public string? Notas { get; set; }
     public string? FotoPath { get; set; }
     
     // Navegación
-    public Planta Planta { get; set; }
+    public Planta? Planta { get; set; }
 }
 
 public enum CalidadCosecha
@@ -26,3 +26,4 @@ public enum CalidadCosecha
     Regular,
     Pobre
 }
+

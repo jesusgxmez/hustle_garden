@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:HuertoApp.Converters"
+             x:Class="hustle_garden.Views.AgregarPlantaPage"
+             Title="">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IsNotNullConverter x:Key="IsNotNullConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Header con gradiente -->
+        <Border Grid.Row="0" 
+                StrokeThickness="0"
+                Padding="30,40,30,25">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1B5E20" Offset="0.0"/>
+                    <GradientStop Color="#2E7D32" Offset="0.5"/>
+                    <GradientStop Color="#4CAF50" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            
+            <Grid ColumnDefinitions="*, Auto">
+                <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                    <Label Text="??" FontSize="36"/>
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Nueva Planta" 
+                               FontSize="28" 
+                               FontAttributes="Bold" 
+                               TextColor="White"/>
+                        <Label Text="Completa la informaci�n" 
+                               FontSize="14" 
+                               TextColor="#C8E6C9"
+                               Opacity="0.9"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <Button Grid.Column="1"
+                        Text="?"
+                        FontSize="24"
+                        TextColor="White"
+                        BackgroundColor="Transparent"
+                        WidthRequest="45"
+                        HeightRequest="45"
+                        CornerRadius="22"
+                        Clicked="OnCerrarClicked"
+                        Opacity="0.8"/>
+            </Grid>
+        </Border>
+
+        <!-- Contenido del formulario -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="30,25" Spacing="18">
+                
+                <!-- Nombre de la planta -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Nombre de la planta *" 
+                           FontSize="14" 
+                           FontAttributes="Bold"
+                           TextColor="#1B5E20"/>
+                    <Border StrokeShape="RoundRectangle 15" 
+                            Stroke="#C8E6C9" 
+                            StrokeThickness="2"
+                            BackgroundColor="#F1F8E9">
+                        <Entry Placeholder="Ej: Tomate, Lechuga, Albahaca" 
+                               Text="{Binding NombreNuevaPlanta}" 
+                               PlaceholderColor="#81C784"
+                               TextColor="#1B5E20"
+                               FontSize="16"
+                               Margin="15,12"
+                               MaxLength="100"
+                               ClearButtonVisibility="WhileEditing"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Variedad -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Variedad (opcional)" 
+                           FontSize="14" 
+                           FontAttributes="Bold"
+                           TextColor="#1B5E20"/>
+                    <Border StrokeShape="RoundRectangle 15" 
+                            Stroke="#C8E6C9" 
+                            StrokeThickness="2"
+                            BackgroundColor="#F1F8E9">
+                        <Entry Placeholder="Ej: Cherry, Romana, Genovesa" 
+                               Text="{Binding VariedadNuevaPlanta}" 
+                               PlaceholderColor="#81C784"
+                               TextColor="#1B5E20"
+                               FontSize="16"
+                               Margin="15,12"
+                               MaxLength="100"
+                               ClearButtonVisibility="WhileEditing"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Ubicaci�n -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Ubicaci�n (opcional)" 
+                           FontSize="14" 
+                           FontAttributes="Bold"
+                           TextColor="#1B5E20"/>
+                    <Border StrokeShape="RoundRectangle 15" 
+                            Stroke="#C8E6C9" 
+                            StrokeThickness="2"
+                            BackgroundColor="#F1F8E9">
+                        <Entry Placeholder="Ej: Parcela A, Maceta 1, Jard�n trasero" 
+                               Text="{Binding UbicacionNuevaPlanta}" 
+                               PlaceholderColor="#81C784"
+                               TextColor="#1B5E20"
+                               FontSize="16"
+                               Margin="15,12"
+                               MaxLength="100"
+                               ClearButtonVisibility="WhileEditing"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- D�as hasta cosecha -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="D�as estimados hasta cosecha" 
+                           FontSize="14" 
+                           FontAttributes="Bold"
+                           TextColor="#1B5E20"/>
+                    <Border StrokeShape="RoundRectangle 15" 
+                            Stroke="#C8E6C9" 
+                            StrokeThickness="2"
+                            BackgroundColor="#F1F8E9">
+                        <HorizontalStackLayout Spacing="10" Margin="15,12">
+                            <Label Text="??" 
+                                   FontSize="20"
+                                   VerticalOptions="Center"/>
+                            <Entry Text="{Binding DiasHastaCosecha}" 
+                                   Keyboard="Numeric" 
+                                   HorizontalOptions="FillAndExpand"
+                                   TextColor="#1B5E20"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   Placeholder="0-365 d�as"
+                                   PlaceholderColor="#81C784"
+                                   MaxLength="3"/>
+                            <Label Text="d�as" 
+                                   TextColor="#4CAF50"
+                                   FontSize="14"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Selecci�n de imagen -->
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Fotograf�a (opcional)" 
+                           FontSize="14" 
+                           FontAttributes="Bold"
+                           TextColor="#1B5E20"/>
+                    
+                    <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                        <!-- Tomar foto -->
+                        <Border Grid.Column="0" 
+                                StrokeShape="RoundRectangle 15"
+                                StrokeThickness="0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#4CAF50" Offset="0.0"/>
+                                    <GradientStop Color="#388E3C" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Shadow>
+                                <Shadow Brush="#4CAF50" Offset="0,4" Radius="8" Opacity="0.3"/>
+                            </Border.Shadow>
+                            <Button Text="CAMARA" 
+                                    Command="{Binding TomarFotoCommand}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    FontSize="13"
+                                    Padding="0"
+                                    HeightRequest="70">
+                                <Button.ImageSource>
+                                    <FontImageSource 
+                                        Glyph="??" 
+                                        FontFamily="Arial"
+                                        Size="24"
+                                        Color="White"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Border>
+
+                        <!-- Galer�a -->
+                        <Border Grid.Column="1" 
+                                StrokeShape="RoundRectangle 15"
+                                StrokeThickness="0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#66BB6A" Offset="0.0"/>
+                                    <GradientStop Color="#4CAF50" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Shadow>
+                                <Shadow Brush="#66BB6A" Offset="0,4" Radius="8" Opacity="0.3"/>
+                            </Border.Shadow>
+                            <Button Text="GALERIA" 
+                                    Command="{Binding SeleccionarGaleriaCommand}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    FontSize="13"
+                                    Padding="0"
+                                    HeightRequest="70">
+                                <Button.ImageSource>
+                                    <FontImageSource 
+                                        Glyph="???" 
+                                        FontFamily="Arial"
+                                        Size="24"
+                                        Color="White"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Border>
+
+                        <!-- Archivo -->
+                        <Border Grid.Column="2" 
+                                StrokeShape="RoundRectangle 15"
+                                StrokeThickness="0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#81C784" Offset="0.0"/>
+                                    <GradientStop Color="#66BB6A" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Shadow>
+                                <Shadow Brush="#81C784" Offset="0,4" Radius="8" Opacity="0.3"/>
+                            </Border.Shadow>
+                            <Button Text="ARCHIVO" 
+                                    Command="{Binding SeleccionarArchivoCommand}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    FontSize="13"
+                                    Padding="0"
+                                    HeightRequest="70">
+                                <Button.ImageSource>
+                                    <FontImageSource 
+                                        Glyph="??" 
+                                        FontFamily="Arial"
+                                        Size="24"
+                                        Color="White"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Border>
+                    </Grid>
+
+                    <!-- Vista previa de la imagen -->
+                    <Border StrokeShape="RoundRectangle 20" 
+                            Stroke="#C8E6C9"
+                            StrokeThickness="3"
+                            HeightRequest="200"
+                            BackgroundColor="#F9FBE7"
+                            IsVisible="{Binding FotoTemporal, Converter={StaticResource IsNotNullConverter}}">
+                        <Grid>
+                            <Image Source="{Binding FotoTemporal}" 
+                                   Aspect="AspectFill"/>
+                            
+                            <!-- Bot�n para eliminar imagen -->
+                            <Border StrokeShape="RoundRectangle 20"
+                                    BackgroundColor="#E53935"
+                                    Padding="12,8"
+                                    Margin="10"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Start">
+                                <Border.Shadow>
+                                    <Shadow Brush="#E53935" Offset="0,3" Radius="8" Opacity="0.4"/>
+                                </Border.Shadow>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding EliminarFotoCommand}"/>
+                                </Border.GestureRecognizers>
+                                <HorizontalStackLayout Spacing="6">
+                                    <Label Text="???" 
+                                           TextColor="White"
+                                           FontSize="16"
+                                           VerticalOptions="Center"/>
+                                    <Label Text="ELIMINAR" 
+                                           TextColor="White"
+                                           FontSize="12"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Footer con botones de acci�n -->
+        <Border Grid.Row="2" 
+                StrokeThickness="0"
+                BackgroundColor="#F5F5F5"
+                Padding="30,20">
+            
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                <!-- Bot�n Cancelar -->
+                <Border Grid.Column="0" 
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="#BDBDBD"
+                        StrokeThickness="2"
+                        BackgroundColor="White">
+                    <Button Text="Cancelar" 
+                            Clicked="OnCerrarClicked"
+                            BackgroundColor="Transparent"
+                            TextColor="#757575"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Padding="0,14"/>
+                </Border>
+
+                <!-- Bot�n Guardar -->
+                <Border Grid.Column="1" 
+                        StrokeShape="RoundRectangle 15"
+                        StrokeThickness="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1B5E20" Offset="0.0"/>
+                            <GradientStop Color="#2E7D32" Offset="0.5"/>
+                            <GradientStop Color="#4CAF50" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#1B5E20" Offset="0,6" Radius="12" Opacity="0.4"/>
+                    </Border.Shadow>
+                    <Button Text="GUARDAR" 
+                            Clicked="OnGuardarClicked"
+                            BackgroundColor="Transparent"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Padding="0,14">
+                        <Button.ImageSource>
+                            <FontImageSource 
+                                Glyph="?" 
+                                FontFamily="Arial"
+                                Size="20"
+                                Color="White"/>
+                        </Button.ImageSource>
+                    </Button>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

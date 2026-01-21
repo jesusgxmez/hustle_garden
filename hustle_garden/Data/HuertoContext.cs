@@ -15,10 +15,12 @@ public class HuertoContext : DbContext
     {
         SQLitePCL.Batteries_V2.Init();
         
-        // Eliminar y recrear la base de datos para aplicar el cambio de FotoPath nullable
-        // NOTA: Solo ejecutar esto una vez, luego comentar estas líneas
-        this.Database.EnsureDeleted();
+        // Asegurar que la base de datos existe (sin borrarla)
         this.Database.EnsureCreated();
+        
+        // NOTA: Si necesitas resetear la BD por cambios en el esquema, descomenta temporalmente estas líneas:
+        // this.Database.EnsureDeleted();
+        // this.Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

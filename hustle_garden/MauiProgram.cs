@@ -1,5 +1,6 @@
 ﻿using HuertoApp.Data;
 using HuertoApp.ViewModels;
+using HuertoApp.Services;
 using hustle_garden.Views;
 using Microsoft.Extensions.Logging;
 
@@ -13,15 +14,21 @@ namespace hustle_garden
             builder
                 .UseMauiApp<App>();
 
+            // Registrar servicios
             builder.Services.AddDbContext<HuertoContext>();
+            builder.Services.AddSingleton<IValidationService, ValidationService>();
+            builder.Services.AddSingleton<IImageService, ImageService>();
 
+            // Registrar ViewModels
             builder.Services.AddTransient<HuertoViewModel>();
             builder.Services.AddTransient<DetallePlantaViewModel>();
             builder.Services.AddTransient<TareasViewModel>();
             builder.Services.AddTransient<EstadisticasViewModel>();
             builder.Services.AddTransient<NotasViewModel>();
 
+            // Registrar Pages
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<AgregarPlantaPage>();
             builder.Services.AddTransient<DetallePlantaPage>();
             builder.Services.AddTransient<TareasPage>();
             builder.Services.AddTransient<EstadisticasPage>();

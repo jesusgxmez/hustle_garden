@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using HuertoApp.Models;
 using HuertoApp.Data;
+using HuertoApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace HuertoApp.ViewModels;
@@ -11,6 +12,7 @@ namespace HuertoApp.ViewModels;
 public class TareasViewModel
 {
     private readonly HuertoContext _context;
+    private readonly IValidationService _validationService;
 
     public ObservableCollection<Tarea> Tareas { get; set; }
     public ObservableCollection<Tarea> TareasPendientes { get; set; }
@@ -30,9 +32,10 @@ public class TareasViewModel
     public ICommand EliminarTareaCommand { get; }
     public ICommand FiltrarTareasCommand { get; }
 
-    public TareasViewModel(HuertoContext context)
+    public TareasViewModel(HuertoContext context, IValidationService validationService)
     {
         _context = context;
+        _validationService = validationService;
         
         AgregarTareaCommand = new Command(async () => await AgregarTarea());
         CompletarTareaCommand = new Command<Tarea>(async (t) => await CompletarTarea(t));
@@ -44,62 +47,117 @@ public class TareasViewModel
 
     async void CargarDatos()
     {
-        var plantas = await _context.Plantas.ToListAsync();
-        Plantas = new ObservableCollection<Planta>(plantas);
-        
-        CargarTareas();
+        try
+        {
+            var plantas = await _context.Plantas.ToListAsync();
+            Plantas = new ObservableCollection<Planta>(plantas);
+            
+            CargarTareas();
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"Error al cargar datos: {ex.Message}", "OK");
+            Plantas = new ObservableCollection<Planta>();
+            Tareas = new ObservableCollection<Tarea>();
+            TareasPendientes = new ObservableCollection<Tarea>();
+            TareasCompletadas = new ObservableCollection<Tarea>();
+        }
     }
 
     void CargarTareas()
     {
-        var tareas = _context.Tareas
-            .Include(t => t.Planta)
-            .OrderBy(t => t.Completada)
-            .ThenByDescending(t => t.Prioridad)
-            .ThenBy(t => t.FechaVencimiento)
-            .ToList();
+        try
+        {
+            var tareas = _context.Tareas
+                .Include(t => t.Planta)
+                .OrderBy(t => t.Completada)
+                .ThenByDescending(t => t.Prioridad)
+                .ThenBy(t => t.FechaVencimiento)
+                .ToList();
 
-        Tareas = new ObservableCollection<Tarea>(tareas);
-        TareasPendientes = new ObservableCollection<Tarea>(tareas.Where(t => !t.Completada));
-        TareasCompletadas = new ObservableCollection<Tarea>(tareas.Where(t => t.Completada));
+            Tareas = new ObservableCollection<Tarea>(tareas);
+            TareasPendientes = new ObservableCollection<Tarea>(tareas.Where(t => !t.Completada));
+            TareasCompletadas = new ObservableCollection<Tarea>(tareas.Where(t => t.Completada));
+        }
+        catch (Exception ex)
+        {
+            Application.Current.MainPage.DisplayAlert("Error", $"Error al cargar tareas: {ex.Message}", "OK");
+            Tareas = new ObservableCollection<Tarea>();
+            TareasPendientes = new ObservableCollection<Tarea>();
+            TareasCompletadas = new ObservableCollection<Tarea>();
+        }
     }
 
     async Task AgregarTarea()
     {
-        if (string.IsNullOrWhiteSpace(TituloNuevaTarea))
+        var validacion = _validationService.ValidateNotEmpty(TituloNuevaTarea, "El título");
+        if (!validacion.IsValid)
         {
-            await Application.Current.MainPage.DisplayAlert("Validación", "El título es obligatorio", "OK");
+            await Application.Current.MainPage.DisplayAlert("Validación", validacion.ErrorMessage, "OK");
             return;
         }
 
-        var nuevaTarea = new Tarea
+        if (FechaVencimientoNueva.HasValue)
         {
-            Titulo = TituloNuevaTarea,
-            Descripcion = DescripcionNuevaTarea,
-            FechaCreacion = DateTime.Now,
-            FechaVencimiento = FechaVencimientoNueva,
-            Prioridad = PrioridadNueva,
-            PlantaId = PlantaSeleccionada?.Id,
-            Completada = false
-        };
+            var fechaValidacion = _validationService.ValidateDateRange(
+                FechaVencimientoNueva.Value, 
+                DateTime.Now.Date, 
+                DateTime.Now.AddYears(5), 
+                "La fecha de vencimiento");
+            
+            if (!fechaValidacion.IsValid)
+            {
+                await Application.Current.MainPage.DisplayAlert("Validación", fechaValidacion.ErrorMessage, "OK");
+                return;
+            }
+        }
 
-        _context.Tareas.Add(nuevaTarea);
-        await _context.SaveChangesAsync();
+        try
+        {
+            var nuevaTarea = new Tarea
+            {
+                Titulo = TituloNuevaTarea.Trim(),
+                Descripcion = string.IsNullOrWhiteSpace(DescripcionNuevaTarea) ? null : DescripcionNuevaTarea.Trim(),
+                FechaCreacion = DateTime.Now,
+                FechaVencimiento = FechaVencimientoNueva,
+                Prioridad = PrioridadNueva,
+                PlantaId = PlantaSeleccionada?.Id,
+                Completada = false
+            };
 
-        TareasPendientes.Insert(0, nuevaTarea);
-        LimpiarFormulario();
+            _context.Tareas.Add(nuevaTarea);
+            await _context.SaveChangesAsync();
 
-        await Application.Current.MainPage.DisplayAlert("Éxito", "Tarea agregada", "OK");
+            TareasPendientes.Insert(0, nuevaTarea);
+            LimpiarFormulario();
+
+            await Application.Current.MainPage.DisplayAlert("Éxito", $"¡Tarea '{nuevaTarea.Titulo}' agregada! ?", "OK");
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo agregar la tarea: {ex.Message}", "OK");
+        }
     }
 
     async Task CompletarTarea(Tarea tarea)
     {
         if (tarea == null) return;
 
-        tarea.Completada = !tarea.Completada;
-        await _context.SaveChangesAsync();
+        try
+        {
+            tarea.Completada = !tarea.Completada;
+            await _context.SaveChangesAsync();
 
-        CargarTareas();
+            CargarTareas();
+            
+            var mensaje = tarea.Completada ? "Tarea completada ?" : "Tarea marcada como pendiente";
+            await Application.Current.MainPage.DisplayAlert("Éxito", mensaje, "OK");
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo actualizar la tarea: {ex.Message}", "OK");
+            tarea.Completada = !tarea.Completada;
+        }
     }
 
     async Task EliminarTarea(Tarea tarea)
@@ -107,21 +165,30 @@ public class TareasViewModel
         if (tarea == null) return;
 
         var confirmar = await Application.Current.MainPage.DisplayAlert(
-            "Confirmar", 
-            $"¿Eliminar tarea '{tarea.Titulo}'?", 
-            "Sí", 
-            "No");
+            "Confirmar eliminación", 
+            $"¿Eliminar tarea '{tarea.Titulo}'?\n\nEsta acción no se puede deshacer.", 
+            "Sí, eliminar", 
+            "Cancelar");
 
         if (!confirmar) return;
 
-        _context.Tareas.Remove(tarea);
-        await _context.SaveChangesAsync();
+        try
+        {
+            _context.Tareas.Remove(tarea);
+            await _context.SaveChangesAsync();
 
-        Tareas.Remove(tarea);
-        if (tarea.Completada)
-            TareasCompletadas.Remove(tarea);
-        else
-            TareasPendientes.Remove(tarea);
+            Tareas.Remove(tarea);
+            if (tarea.Completada)
+                TareasCompletadas.Remove(tarea);
+            else
+                TareasPendientes.Remove(tarea);
+                
+            await Application.Current.MainPage.DisplayAlert("Éxito", "Tarea eliminada", "OK");
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo eliminar la tarea: {ex.Message}", "OK");
+        }
     }
 
     void LimpiarFormulario()

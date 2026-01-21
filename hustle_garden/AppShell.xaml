@@ -5,24 +5,63 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:hustle_garden"
     xmlns:views="clr-namespace:hustle_garden.Views"
-    Title="Huerto Digital">
+    Title="Huerto Digital"
+    Shell.FlyoutBehavior="Disabled">
+
+    <Shell.Resources>
+        <Style TargetType="TabBar">
+            <Setter Property="Shell.TabBarBackgroundColor" Value="White"/>
+            <Setter Property="Shell.TabBarForegroundColor" Value="#1B5E20"/>
+            <Setter Property="Shell.TabBarTitleColor" Value="#1B5E20"/>
+            <Setter Property="Shell.TabBarUnselectedColor" Value="#9E9E9E"/>
+        </Style>
+    </Shell.Resources>
 
     <TabBar>
-        <Tab Title="Plantas" Icon="dotnet_bot.png">
+        <Tab Title="Plantas">
+            <Tab.Icon>
+                <FontImageSource 
+                    Glyph="🌱" 
+                    FontFamily="Arial"
+                    Size="30"
+                    Color="#4CAF50"/>
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
         </Tab>
 
-        <Tab Title="Tareas" Icon="dotnet_bot.png">
+        <Tab Title="Tareas">
+            <Tab.Icon>
+                <FontImageSource 
+                    Glyph="✓" 
+                    FontFamily="Arial"
+                    Size="30"
+                    Color="#FF9800"/>
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate views:TareasPage}" Route="TareasPage" />
         </Tab>
 
-        <Tab Title="Notas" Icon="dotnet_bot.png">
+        <Tab Title="Notas">
+            <Tab.Icon>
+                <FontImageSource 
+                    Glyph="📝" 
+                    FontFamily="Arial"
+                    Size="30"
+                    Color="#9C27B0"/>
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate views:NotasPage}" Route="NotasPage" />
         </Tab>
 
-        <Tab Title="Estadísticas" Icon="dotnet_bot.png">
+        <Tab Title="Stats">
+            <Tab.Icon>
+                <FontImageSource 
+                    Glyph="📊" 
+                    FontFamily="Arial"
+                    Size="30"
+                    Color="#0288D1"/>
+            </Tab.Icon>
             <ShellContent ContentTemplate="{DataTemplate views:EstadisticasPage}" Route="EstadisticasPage" />
         </Tab>
     </TabBar>
 
 </Shell>
+

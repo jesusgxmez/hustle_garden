@@ -346,13 +346,21 @@
                     <Border.Shadow>
                         <Shadow Brush="#1B5E20" Offset="0,6" Radius="12" Opacity="0.3"/>
                     </Border.Shadow>
-                    <Button Text="🔄 Refrescar Datos" 
+                    <Button Text="REFRESCAR DATOS" 
                             Command="{Binding RefrescarCommand}"
                             BackgroundColor="Transparent"
                             TextColor="White"
                             FontAttributes="Bold"
                             FontSize="17"
-                            Padding="0,14"/>
+                            Padding="0,14">
+                        <Button.ImageSource>
+                            <FontImageSource 
+                                Glyph="🔄" 
+                                FontFamily="Arial"
+                                Size="18"
+                                Color="White"/>
+                        </Button.ImageSource>
+                    </Button>
                 </Border>
 
             </VerticalStackLayout>

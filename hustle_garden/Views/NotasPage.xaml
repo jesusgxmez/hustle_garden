@@ -38,7 +38,7 @@
                         Stroke="#C8E6C9" 
                         StrokeThickness="2"
                         BackgroundColor="White">
-                    <Entry Placeholder="✍️ Título de la nota" 
+                    <Entry Placeholder="Titulo de la nota" 
                            Text="{Binding TituloNuevaNota}"
                            PlaceholderColor="#66BB6A"
                            TextColor="#1B5E20"
@@ -50,7 +50,7 @@
                         Stroke="#C8E6C9" 
                         StrokeThickness="2"
                         BackgroundColor="White">
-                    <Editor Placeholder="💭 Escribe aquí el contenido de tu nota..." 
+                    <Editor Placeholder="Escribe aqui el contenido de tu nota..." 
                             Text="{Binding ContenidoNuevaNota}" 
                             HeightRequest="100"
                             PlaceholderColor="#66BB6A"
@@ -62,7 +62,7 @@
                         Stroke="#C8E6C9" 
                         StrokeThickness="2"
                         BackgroundColor="White">
-                    <Picker Title="🏷️ Categoría" 
+                    <Picker Title="Categoria" 
                             SelectedItem="{Binding CategoriaNuevaNota}"
                             TextColor="#1B5E20"
                             TitleColor="#66BB6A"
@@ -88,11 +88,19 @@
                         <Border.Shadow>
                             <Shadow Brush="#4CAF50" Offset="0,4" Radius="8" Opacity="0.3"/>
                         </Border.Shadow>
-                        <Button Text="📸 Foto" 
+                        <Button Text="FOTO" 
                                 Command="{Binding TomarFotoCommand}"
                                 BackgroundColor="Transparent"
                                 TextColor="White"
-                                FontAttributes="Bold"/>
+                                FontAttributes="Bold">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                    Glyph="📸" 
+                                    FontFamily="Arial"
+                                    Size="18"
+                                    Color="White"/>
+                            </Button.ImageSource>
+                        </Button>
                     </Border>
                     
                     <Border Grid.Column="1" 
@@ -102,11 +110,19 @@
                         <Border.Shadow>
                             <Shadow Brush="#66BB6A" Offset="0,4" Radius="8" Opacity="0.3"/>
                         </Border.Shadow>
-                        <Button Text="🖼️ Galería" 
+                        <Button Text="GALERIA" 
                                 Command="{Binding SeleccionarGaleriaCommand}"
                                 BackgroundColor="Transparent"
                                 TextColor="White"
-                                FontAttributes="Bold"/>
+                                FontAttributes="Bold">
+                            <Button.ImageSource>
+                                <FontImageSource 
+                                    Glyph="🖼️" 
+                                    FontFamily="Arial"
+                                    Size="18"
+                                    Color="White"/>
+                            </Button.ImageSource>
+                        </Button>
                     </Border>
 
                     <Border Grid.Column="2" 
@@ -131,13 +147,21 @@
                     <Border.Shadow>
                         <Shadow Brush="#6A1B9A" Offset="0,6" Radius="12" Opacity="0.3"/>
                     </Border.Shadow>
-                    <Button Text="💾 GUARDAR NOTA" 
+                    <Button Text="GUARDAR NOTA" 
                             Command="{Binding AgregarNotaCommand}"
                             BackgroundColor="Transparent"
                             TextColor="White"
                             FontAttributes="Bold"
                             FontSize="17"
-                            Padding="0,12"/>
+                            Padding="0,12">
+                        <Button.ImageSource>
+                            <FontImageSource 
+                                Glyph="💾" 
+                                FontFamily="Arial"
+                                Size="18"
+                                Color="White"/>
+                        </Button.ImageSource>
+                    </Button>
                 </Border>
             </VerticalStackLayout>
         </Border>
@@ -160,7 +184,7 @@
                             <SwipeView Margin="0,6">
                                 <SwipeView.RightItems>
                                     <SwipeItems>
-                                        <SwipeItem Text="🗑️" 
+                                        <SwipeItem Text="ELIMINAR" 
                                                    BackgroundColor="#E53935"
                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EliminarNotaCommand}"
                                                    CommandParameter="{Binding .}"/>

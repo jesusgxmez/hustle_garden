@@ -14,5 +14,6 @@ public class Riego
     public string? Notas { get; set; }
     
     // Navegación
-    public Planta Planta { get; set; }
+    public Planta? Planta { get; set; }
 }
+
