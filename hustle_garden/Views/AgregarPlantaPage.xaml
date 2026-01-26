@@ -11,7 +11,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto, *, Auto">
+    <Grid RowDefinitions="Auto, *, Auto" BackgroundColor="White">
         <!-- Header con gradiente -->
         <Border Grid.Row="0" 
                 StrokeThickness="0"
@@ -26,13 +26,13 @@
             
             <Grid ColumnDefinitions="*, Auto">
                 <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
-                    <Label Text="??" FontSize="36"/>
+                    <Label Text="🌱" FontSize="36"/>
                     <VerticalStackLayout Spacing="2">
                         <Label Text="Nueva Planta" 
                                FontSize="28" 
                                FontAttributes="Bold" 
                                TextColor="White"/>
-                        <Label Text="Completa la informaci�n" 
+                        <Label Text="Completa la información" 
                                FontSize="14" 
                                TextColor="#C8E6C9"
                                Opacity="0.9"/>
@@ -40,7 +40,7 @@
                 </HorizontalStackLayout>
 
                 <Button Grid.Column="1"
-                        Text="?"
+                        Text="✕"
                         FontSize="24"
                         TextColor="White"
                         BackgroundColor="Transparent"
@@ -100,7 +100,7 @@
 
                 <!-- Ubicaci�n -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Ubicaci�n (opcional)" 
+                    <Label Text="Ubicación (opcional)" 
                            FontSize="14" 
                            FontAttributes="Bold"
                            TextColor="#1B5E20"/>
@@ -108,7 +108,7 @@
                             Stroke="#C8E6C9" 
                             StrokeThickness="2"
                             BackgroundColor="#F1F8E9">
-                        <Entry Placeholder="Ej: Parcela A, Maceta 1, Jard�n trasero" 
+                        <Entry Placeholder="Ej: Parcela A, Maceta 1, Jardín trasero" 
                                Text="{Binding UbicacionNuevaPlanta}" 
                                PlaceholderColor="#81C784"
                                TextColor="#1B5E20"
@@ -121,7 +121,7 @@
 
                 <!-- D�as hasta cosecha -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="D�as estimados hasta cosecha" 
+                    <Label Text="Días estimados hasta cosecha" 
                            FontSize="14" 
                            FontAttributes="Bold"
                            TextColor="#1B5E20"/>
@@ -130,7 +130,7 @@
                             StrokeThickness="2"
                             BackgroundColor="#F1F8E9">
                         <HorizontalStackLayout Spacing="10" Margin="15,12">
-                            <Label Text="??" 
+                            <Label Text="📅" 
                                    FontSize="20"
                                    VerticalOptions="Center"/>
                             <Entry Text="{Binding DiasHastaCosecha}" 
@@ -139,10 +139,10 @@
                                    TextColor="#1B5E20"
                                    FontSize="16"
                                    FontAttributes="Bold"
-                                   Placeholder="0-365 d�as"
+                                   Placeholder="0-365 días"
                                    PlaceholderColor="#81C784"
                                    MaxLength="3"/>
-                            <Label Text="d�as" 
+                            <Label Text="días" 
                                    TextColor="#4CAF50"
                                    FontSize="14"
                                    VerticalOptions="Center"/>
@@ -152,7 +152,7 @@
 
                 <!-- Selecci�n de imagen -->
                 <VerticalStackLayout Spacing="12">
-                    <Label Text="Fotograf�a (opcional)" 
+                    <Label Text="Fotografía (opcional)" 
                            FontSize="14" 
                            FontAttributes="Bold"
                            TextColor="#1B5E20"/>
@@ -181,7 +181,7 @@
                                     HeightRequest="70">
                                 <Button.ImageSource>
                                     <FontImageSource 
-                                        Glyph="??" 
+                                        Glyph="📷" 
                                         FontFamily="Arial"
                                         Size="24"
                                         Color="White"/>
@@ -212,7 +212,7 @@
                                     HeightRequest="70">
                                 <Button.ImageSource>
                                     <FontImageSource 
-                                        Glyph="???" 
+                                        Glyph="🖼️" 
                                         FontFamily="Arial"
                                         Size="24"
                                         Color="White"/>
@@ -243,7 +243,7 @@
                                     HeightRequest="70">
                                 <Button.ImageSource>
                                     <FontImageSource 
-                                        Glyph="??" 
+                                        Glyph="📂" 
                                         FontFamily="Arial"
                                         Size="24"
                                         Color="White"/>
