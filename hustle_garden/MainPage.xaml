@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:HuertoApp.ViewModels"
              xmlns:converters="clr-namespace:HuertoApp.Converters"
              x:Class="hustle_garden.MainPage"
-             Title="?? Mis Plantas">
+             Title="🌱 Mis Plantas">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -29,20 +29,21 @@
         <ScrollView Grid.Row="0">
             <VerticalStackLayout Padding="20" Spacing="15">
                 
-                <Label Text="?? Tus Plantas" 
+                
+                <Label Text="🌱 Tus Plantas" 
                        FontSize="28" 
                        FontAttributes="Bold" 
                        TextColor="#1B5E20"
                        Margin="0,10,0,15"/>
                 
                 <CollectionView ItemsSource="{Binding Plantas}"
-                                EmptyView="?? No hay plantas a�n. �Toca el bot�n + para comenzar!">
+                                EmptyView="🌱 No hay plantas aún. ¡Toca el botón + para comenzar!">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <SwipeView Margin="0,0,0,12">
                                 <SwipeView.RightItems>
                                     <SwipeItems>
-                                        <SwipeItem Text="??? Borrar" 
+                                        <SwipeItem Text="🗑️ Borrar" 
                                                    BackgroundColor="#E53935"
                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HuertoViewModel}}, Path=BorrarPlantaCommand}"
                                                    CommandParameter="{Binding .}"/>
@@ -93,7 +94,7 @@
                                                    TextColor="#1B5E20"
                                                    LineBreakMode="TailTruncation"/>
                                             
-                                            <Label Text="{Binding Variedad, StringFormat='?? {0}'}" 
+                                            <Label Text="{Binding Variedad, StringFormat='🌿 {0}'}" 
                                                    FontSize="15" 
                                                    TextColor="#4CAF50"
                                                    FontAttributes="Bold"
@@ -110,12 +111,12 @@
                                                        FontAttributes="Bold"/>
                                             </Border>
                                             
-                                            <Label Text="{Binding FechaSiembra, StringFormat='?? Sembrada: {0:dd/MM/yyyy}'}" 
+                                            <Label Text="{Binding FechaSiembra, StringFormat='📅 Sembrada: {0:dd/MM/yyyy}'}" 
                                                    FontSize="13" 
                                                    TextColor="#666"
                                                    Margin="0,4,0,0"/>
                                             
-                                            <Label Text="{Binding Ubicacion, StringFormat='?? {0}'}" 
+                                            <Label Text="{Binding Ubicacion, StringFormat='📍 {0}'}" 
                                                    FontSize="13" 
                                                    TextColor="#666"
                                                    IsVisible="{Binding Ubicacion, Converter={StaticResource StringNotNullOrEmptyConverter}}"/>
@@ -127,12 +128,12 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <!-- Espaciado inferior para el bot�n flotante -->
+                <!-- Espaciado inferior para el bot�n flotante -->
                 <BoxView HeightRequest="80" Color="Transparent"/>
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Bot�n flotante para agregar planta -->
+        <!-- Bot�n flotante para agregar planta -->
         <Border Grid.Row="0"
                 StrokeShape="RoundRectangle 35"
                 StrokeThickness="0"

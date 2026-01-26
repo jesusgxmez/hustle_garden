@@ -23,24 +23,36 @@ public class TareasViewModel
     public string DescripcionNuevaTarea { get; set; }
     public DateTime? FechaVencimientoNueva { get; set; }
     public PrioridadTarea PrioridadNueva { get; set; } = PrioridadTarea.Media;
+    public string PrioridadSeleccionada { get; set; } = "Media";
     public Planta PlantaSeleccionada { get; set; }
     
     public bool MostrarSoloPendientes { get; set; } = true;
+    public bool MostrarPopupNuevaTarea { get; set; } = false;
 
     public ICommand AgregarTareaCommand { get; }
     public ICommand CompletarTareaCommand { get; }
     public ICommand EliminarTareaCommand { get; }
     public ICommand FiltrarTareasCommand { get; }
+    public ICommand MostrarPopupNuevaTareaCommand { get; }
+    public ICommand CerrarPopupNuevaTareaCommand { get; }
 
     public TareasViewModel(HuertoContext context, IValidationService validationService)
     {
         _context = context;
         _validationService = validationService;
         
+        // Inicializar colecciones vacías primero
+        Tareas = new ObservableCollection<Tarea>();
+        TareasPendientes = new ObservableCollection<Tarea>();
+        TareasCompletadas = new ObservableCollection<Tarea>();
+        Plantas = new ObservableCollection<Planta>();
+        
         AgregarTareaCommand = new Command(async () => await AgregarTarea());
         CompletarTareaCommand = new Command<Tarea>(async (t) => await CompletarTarea(t));
         EliminarTareaCommand = new Command<Tarea>(async (t) => await EliminarTarea(t));
-        FiltrarTareasCommand = new Command(() => CargarTareas());
+        FiltrarTareasCommand = new Command(async () => await CargarTareas());
+        MostrarPopupNuevaTareaCommand = new Command(() => MostrarPopupNuevaTarea = true);
+        CerrarPopupNuevaTareaCommand = new Command(() => MostrarPopupNuevaTarea = false);
 
         CargarDatos();
     }
@@ -52,7 +64,7 @@ public class TareasViewModel
             var plantas = await _context.Plantas.ToListAsync();
             Plantas = new ObservableCollection<Planta>(plantas);
             
-            CargarTareas();
+            await CargarTareas();
         }
         catch (Exception ex)
         {
@@ -64,16 +76,16 @@ public class TareasViewModel
         }
     }
 
-    void CargarTareas()
+    async Task CargarTareas()
     {
         try
         {
-            var tareas = _context.Tareas
+            var tareas = await _context.Tareas
                 .Include(t => t.Planta)
                 .OrderBy(t => t.Completada)
                 .ThenByDescending(t => t.Prioridad)
                 .ThenBy(t => t.FechaVencimiento)
-                .ToList();
+                .ToListAsync();
 
             Tareas = new ObservableCollection<Tarea>(tareas);
             TareasPendientes = new ObservableCollection<Tarea>(tareas.Where(t => !t.Completada));
@@ -114,6 +126,13 @@ public class TareasViewModel
 
         try
         {
+            // Convertir el string seleccionado a enum
+            if (!string.IsNullOrWhiteSpace(PrioridadSeleccionada) && 
+                Enum.TryParse<PrioridadTarea>(PrioridadSeleccionada, out var prioridad))
+            {
+                PrioridadNueva = prioridad;
+            }
+            
             var nuevaTarea = new Tarea
             {
                 Titulo = TituloNuevaTarea.Trim(),
@@ -128,10 +147,11 @@ public class TareasViewModel
             _context.Tareas.Add(nuevaTarea);
             await _context.SaveChangesAsync();
 
-            TareasPendientes.Insert(0, nuevaTarea);
+            await CargarTareas();
             LimpiarFormulario();
-
-            await Application.Current.MainPage.DisplayAlert("Éxito", $"¡Tarea '{nuevaTarea.Titulo}' agregada! ?", "OK");
+            
+            // Cerrar el popup
+            MostrarPopupNuevaTarea = false;
         }
         catch (Exception ex)
         {
@@ -148,14 +168,24 @@ public class TareasViewModel
             tarea.Completada = !tarea.Completada;
             await _context.SaveChangesAsync();
 
-            CargarTareas();
-            
-            var mensaje = tarea.Completada ? "Tarea completada ?" : "Tarea marcada como pendiente";
-            await Application.Current.MainPage.DisplayAlert("Éxito", mensaje, "OK");
+            // Mover la tarea entre colecciones sin recargar todo
+            if (tarea.Completada)
+            {
+                // Se completó: mover de pendientes a completadas
+                TareasPendientes.Remove(tarea);
+                TareasCompletadas.Add(tarea);
+            }
+            else
+            {
+                // Se desmarcó: mover de completadas a pendientes
+                TareasCompletadas.Remove(tarea);
+                TareasPendientes.Add(tarea);
+            }
         }
         catch (Exception ex)
         {
             await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo actualizar la tarea: {ex.Message}", "OK");
+            // Revertir el cambio en caso de error
             tarea.Completada = !tarea.Completada;
         }
     }
@@ -182,8 +212,6 @@ public class TareasViewModel
                 TareasCompletadas.Remove(tarea);
             else
                 TareasPendientes.Remove(tarea);
-                
-            await Application.Current.MainPage.DisplayAlert("Éxito", "Tarea eliminada", "OK");
         }
         catch (Exception ex)
         {
@@ -197,6 +225,7 @@ public class TareasViewModel
         DescripcionNuevaTarea = string.Empty;
         FechaVencimientoNueva = null;
         PrioridadNueva = PrioridadTarea.Media;
+        PrioridadSeleccionada = "Media";
         PlantaSeleccionada = null;
     }
 }

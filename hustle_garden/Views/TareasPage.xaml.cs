@@ -6,6 +6,7 @@ namespace hustle_garden.Views;
 public partial class TareasPage : ContentPage
 {
     TareasViewModel viewModel;
+    private bool _isUpdating = false;
 
     public TareasPage(TareasViewModel vm)
     {
@@ -15,9 +16,25 @@ public partial class TareasPage : ContentPage
 
     void OnCheckboxChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (sender is CheckBox checkbox && checkbox.BindingContext is Tarea tarea)
+        if (_isUpdating) return;
+        
+        _isUpdating = true;
+        
+        try
         {
-            viewModel.CompletarTareaCommand.Execute(tarea);
+            if (sender is CheckBox checkbox && checkbox.BindingContext is Tarea tarea)
+            {
+                // Ejecutar el comando de forma asíncrona sin esperar
+                Task.Run(async () =>
+                {
+                    await Task.Run(() => viewModel.CompletarTareaCommand.Execute(tarea));
+                });
+            }
+        }
+        finally
+        {
+            // Esperar un poco antes de permitir otro cambio
+            Task.Delay(100).ContinueWith(_ => _isUpdating = false);
         }
     }
 }
