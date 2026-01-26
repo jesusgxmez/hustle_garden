@@ -3,6 +3,8 @@ using PropertyChanged;
 
 namespace HuertoApp.Models;
 
+//Modelo de la cosecha
+
 [AddINotifyPropertyChangedInterface]
 public class Cosecha
 {
