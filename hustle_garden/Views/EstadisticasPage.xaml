@@ -216,8 +216,15 @@
                                    VerticalOptions="Center"/>
                         </HorizontalStackLayout>
 
-                        <CollectionView ItemsSource="{Binding CosechasPorMes}" 
-                                        EmptyView="📊 Sin datos de cosechas">
+                        <CollectionView ItemsSource="{Binding CosechasPorMes}">
+                            <CollectionView.EmptyView>
+                                <Label Text="📊 Sin datos de cosechas" 
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Margin="0,20"/>
+                            </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Border StrokeShape="RoundRectangle 12" 
@@ -269,8 +276,15 @@
                                    VerticalOptions="Center"/>
                         </HorizontalStackLayout>
 
-                        <CollectionView ItemsSource="{Binding PlantasMasProductivas}" 
-                                        EmptyView="🌱 Sin datos de productividad">
+                        <CollectionView ItemsSource="{Binding PlantasMasProductivas}">
+                            <CollectionView.EmptyView>
+                                <Label Text="🌱 Sin datos de productividad" 
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Margin="0,20"/>
+                            </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Border StrokeShape="RoundRectangle 15" 
@@ -306,7 +320,7 @@
                                                     <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
                                                         <Label Text="⚖️" FontSize="16"/>
                                                         <Label Text="{Binding TotalKg, StringFormat='{0:F2} kg'}" 
-                                                               TextColor="White" 
+                                                               TextColor="Black" 
                                                                FontSize="15"
                                                                FontAttributes="Bold"/>
                                                     </HorizontalStackLayout>
@@ -320,7 +334,7 @@
                                                     <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
                                                         <Label Text="🌽" FontSize="16"/>
                                                         <Label Text="{Binding NumeroCosechas}" 
-                                                               TextColor="White" 
+                                                               TextColor="Black" 
                                                                FontSize="15"
                                                                FontAttributes="Bold"/>
                                                     </HorizontalStackLayout>

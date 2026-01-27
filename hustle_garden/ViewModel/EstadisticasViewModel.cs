@@ -27,6 +27,8 @@ public class EstadisticasViewModel
     public EstadisticasViewModel(HuertoContext context)
     {
         _context = context;
+        CosechasPorMes = new ObservableCollection<EstadisticaMensual>();
+        PlantasMasProductivas = new ObservableCollection<PlantaMasProductiva>();
         RefrescarCommand = new Command(async () => await CargarEstadisticas());
         
         _ = CargarEstadisticas();
@@ -57,9 +59,14 @@ public class EstadisticasViewModel
                 Cantidad = g.Sum(c => c.CantidadKg)
             })
             .OrderByDescending(e => e.Mes)
-            .Take(6);
+            .Take(6)
+            .ToList();
 
-        CosechasPorMes = new ObservableCollection<EstadisticaMensual>(cosechasPorMes);
+        CosechasPorMes.Clear();
+        foreach (var item in cosechasPorMes)
+        {
+            CosechasPorMes.Add(item);
+        }
 
         var plantasProductivas = plantas
             .Where(p => p.Cosechas.Any())
@@ -70,9 +77,14 @@ public class EstadisticasViewModel
                 NumeroCosechas = p.Cosechas.Count
             })
             .OrderByDescending(p => p.TotalKg)
-            .Take(5);
+            .Take(5)
+            .ToList();
 
-        PlantasMasProductivas = new ObservableCollection<PlantaMasProductiva>(plantasProductivas);
+        PlantasMasProductivas.Clear();
+        foreach (var item in plantasProductivas)
+        {
+            PlantasMasProductivas.Add(item);
+        }
     }
 }
 

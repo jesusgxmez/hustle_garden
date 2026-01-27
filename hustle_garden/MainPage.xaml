@@ -40,7 +40,7 @@
                                 EmptyView="🌱 No hay plantas aún. ¡Toca el botón + para comenzar!">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <SwipeView Margin="0,0,0,12">
+                            <SwipeView Margin="0,0,0,20">
                                 <SwipeView.RightItems>
                                     <SwipeItems>
                                         <SwipeItem Text="🗑️ Borrar" 

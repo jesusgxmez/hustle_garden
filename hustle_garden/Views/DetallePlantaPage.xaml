@@ -225,8 +225,15 @@
                                TextColor="#0277BD"
                                Margin="0,10,0,5"/>
                         
-                        <CollectionView ItemsSource="{Binding Riegos}" 
-                                        EmptyView="💧 Sin riegos registrados aún">
+                        <CollectionView ItemsSource="{Binding Riegos}">
+                            <CollectionView.EmptyView>
+                                <Label Text="💧 Sin riegos registrados aún" 
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Margin="0,20"/>
+                            </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Border StrokeShape="RoundRectangle 12" 
@@ -247,7 +254,7 @@
                                                     StrokeThickness="0"
                                                     VerticalOptions="Center">
                                                 <Label Text="{Binding CantidadLitros, StringFormat='{0:F1} L'}" 
-                                                       TextColor="White" 
+                                                       TextColor="Black" 
                                                        FontAttributes="Bold"
                                                        FontSize="14"/>
                                             </Border>
@@ -438,8 +445,15 @@
                                    VerticalOptions="Center"/>
                         </HorizontalStackLayout>
 
-                        <CollectionView ItemsSource="{Binding Cosechas}" 
-                                        EmptyView="🌾 Sin cosechas registradas aún">
+                        <CollectionView ItemsSource="{Binding Cosechas}">
+                            <CollectionView.EmptyView>
+                                <Label Text="🌾 Sin cosechas registradas aún" 
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Margin="0,20"/>
+                            </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Border StrokeShape="RoundRectangle 15" 
