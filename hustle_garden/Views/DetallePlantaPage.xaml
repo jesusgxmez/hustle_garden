@@ -49,26 +49,26 @@
                                     </BoxView.Background>
                                 </BoxView>
                                 
-                                <!-- Badge de estado flotante -->
+                                <!-- Botón de cerrar flotante -->
                                 <Border StrokeShape="RoundRectangle 20" 
-                                        Padding="20,10"
+                                        Padding="0"
                                         Margin="20"
                                         HorizontalOptions="End"
                                         VerticalOptions="Start"
-                                        StrokeThickness="0">
-                                    <Border.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                            <GradientStop Color="#4CAF50" Offset="0.0"/>
-                                            <GradientStop Color="#66BB6A" Offset="1.0"/>
-                                        </LinearGradientBrush>
-                                    </Border.Background>
+                                        WidthRequest="45"
+                                        HeightRequest="45"
+                                        StrokeThickness="0"
+                                        BackgroundColor="White">
                                     <Border.Shadow>
-                                        <Shadow Brush="#4CAF50" Offset="0,4" Radius="12" Opacity="0.4"/>
+                                        <Shadow Brush="Black" Offset="0,4" Radius="12" Opacity="0.3"/>
                                     </Border.Shadow>
-                                    <Label Text="{Binding Planta.Estado}" 
-                                           FontSize="15" 
-                                           TextColor="White"
-                                           FontAttributes="Bold"/>
+                                    <Button Text="✕" 
+                                            FontSize="24" 
+                                            TextColor="#E53935"
+                                            BackgroundColor="Transparent"
+                                            Clicked="OnCerrarClicked"
+                                            Padding="0"
+                                            FontAttributes="Bold"/>
                                 </Border>
                             </Grid>
                         </Border>
@@ -80,12 +80,33 @@
                                    FontAttributes="Bold" 
                                    TextColor="#1B5E20"/>
                             
-                            <HorizontalStackLayout Spacing="8">
-                                <Label Text="🌿" FontSize="18"/>
-                                <Label Text="{Binding Planta.Variedad}" 
-                                       FontSize="18" 
-                                       TextColor="#4CAF50"
-                                       FontAttributes="Bold"/>
+                            <HorizontalStackLayout Spacing="10">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Label Text="🌿" FontSize="18"/>
+                                    <Label Text="{Binding Planta.Variedad}" 
+                                           FontSize="18" 
+                                           TextColor="#4CAF50"
+                                           FontAttributes="Bold"/>
+                                </HorizontalStackLayout>
+                                
+                                <!-- Badge de estado al lado de la variedad -->
+                                <Border StrokeShape="RoundRectangle 15" 
+                                        Padding="12,6"
+                                        StrokeThickness="0">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#4CAF50" Offset="0.0"/>
+                                            <GradientStop Color="#66BB6A" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Border.Shadow>
+                                        <Shadow Brush="#4CAF50" Offset="0,3" Radius="8" Opacity="0.3"/>
+                                    </Border.Shadow>
+                                    <Label Text="{Binding Planta.Estado}" 
+                                           FontSize="13" 
+                                           TextColor="White"
+                                           FontAttributes="Bold"/>
+                                </Border>
                             </HorizontalStackLayout>
                             
                             <BoxView HeightRequest="1" Color="#E0E0E0" Margin="0,8"/>
@@ -525,6 +546,8 @@
                                                            FontAttributes="Bold"/>
                                                 </HorizontalStackLayout>
                                                 
+
+
                                                 <Label Text="{Binding Notas}" 
                                                        TextColor="#6D4C41"
                                                        FontSize="14"

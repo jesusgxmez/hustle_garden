@@ -1,4 +1,5 @@
 using HuertoApp.ViewModels;
+using System;
 
 namespace hustle_garden.Views;
 
@@ -16,5 +17,10 @@ public partial class DetallePlantaPage : ContentPage
     {
         base.OnAppearing();
         await viewModel.CargarDatos();
+    }
+
+    private async void OnCerrarClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
     }
 }
