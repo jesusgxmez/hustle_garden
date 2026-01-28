@@ -40,7 +40,7 @@
                                 EmptyView="🌱 No hay plantas aún. ¡Toca el botón + para comenzar!">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <SwipeView Margin="0,0,0,20">
+                            <SwipeView Margin="0,0,0,30">
                                 <SwipeView.RightItems>
                                     <SwipeItems>
                                         <SwipeItem Text="🗑️ Borrar" 
@@ -57,7 +57,7 @@
                                         <Shadow Brush="Black" Offset="0,4" Radius="16" Opacity="0.1"/>
                                     </Border.Shadow>
                                     
-                                    <Grid ColumnDefinitions="140, *" 
+                                    <Grid ColumnDefinitions="140, *, Auto" 
                                           RowDefinitions="Auto"
                                           MinimumHeightRequest="140">
                                         <Grid.GestureRecognizers>
@@ -121,6 +121,20 @@
                                                    TextColor="#666"
                                                    IsVisible="{Binding Ubicacion, Converter={StaticResource StringNotNullOrEmptyConverter}}"/>
                                         </VerticalStackLayout>
+
+                                        <!-- Botón de eliminar -->
+                                        <Button Grid.Column="2"
+                                                Text="🗑️" 
+                                                FontSize="24"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HuertoViewModel}}, Path=BorrarPlantaCommand}"
+                                                CommandParameter="{Binding .}"
+                                                WidthRequest="50"
+                                                HeightRequest="50"
+                                                Padding="0"
+                                                Margin="10,0,15,0"
+                                                VerticalOptions="Start"
+                                                HorizontalOptions="End"/>
                                     </Grid>
                                 </Border>
                             </SwipeView>
@@ -128,12 +142,12 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <!-- Espaciado inferior para el bot�n flotante -->
+                <!-- Espaciado inferior para el botón flotante -->
                 <BoxView HeightRequest="80" Color="Transparent"/>
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Bot�n flotante para agregar planta -->
+        <!-- Botón flotante para agregar planta -->
         <Border Grid.Row="0"
                 StrokeShape="RoundRectangle 35"
                 StrokeThickness="0"
