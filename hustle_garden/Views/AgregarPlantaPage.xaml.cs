@@ -20,11 +20,9 @@ public partial class AgregarPlantaPage : ContentPage
 
     private async void OnGuardarClicked(object sender, EventArgs e)
     {
-        await _viewModel.GuardarPlantaDesdeModal();
+        var guardadoExitoso = await _viewModel.GuardarPlantaDesdeModal();
         
-        // Verificar si se guardó exitosamente (la última planta tiene el nombre ingresado)
-        if (_viewModel.Plantas.Any() && 
-            _viewModel.Plantas.FirstOrDefault()?.Nombre == _viewModel.NombreNuevaPlanta?.Trim())
+        if (guardadoExitoso)
         {
             await Navigation.PopModalAsync();
         }

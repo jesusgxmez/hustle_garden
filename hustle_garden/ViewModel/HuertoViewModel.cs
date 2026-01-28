@@ -118,19 +118,19 @@ public class HuertoViewModel
         await Application.Current.MainPage.Navigation.PushModalAsync(modalPage);
     }
 
-    public async Task GuardarPlantaDesdeModal()
+    public async Task<bool> GuardarPlantaDesdeModal()
     {
-        await GuardarPlanta();
+        return await GuardarPlanta();
     }
 
-    async Task GuardarPlanta()
+    async Task<bool> GuardarPlanta()
     {
         // Validar nombre
         var nombreValidacion = _validationService.ValidatePlantName(NombreNuevaPlanta);
         if (!nombreValidacion.IsValid)
         {
             await Application.Current.MainPage.DisplayAlert("Validación", nombreValidacion.ErrorMessage, "OK");
-            return;
+            return false;
         }
 
         // Validar días hasta cosecha
@@ -138,7 +138,7 @@ public class HuertoViewModel
         if (!diasValidacion.IsValid)
         {
             await Application.Current.MainPage.DisplayAlert("Validación", diasValidacion.ErrorMessage, "OK");
-            return;
+            return false;
         }
 
         // Validar imagen si existe
@@ -148,7 +148,7 @@ public class HuertoViewModel
             if (!imagenValidacion.IsValid)
             {
                 await Application.Current.MainPage.DisplayAlert("Validación", imagenValidacion.ErrorMessage, "OK");
-                return;
+                return false;
             }
         }
 
@@ -174,10 +174,13 @@ public class HuertoViewModel
             LimpiarFormulario();
             
             await Application.Current.MainPage.DisplayAlert("Éxito", $"¡{nueva.Nombre} ha sido añadida exitosamente! 🌱", "OK");
+            
+            return true;
         }
         catch (Exception ex)
         {
             await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo guardar la planta: {ex.Message}", "OK");
+            return false;
         }
     }
 
