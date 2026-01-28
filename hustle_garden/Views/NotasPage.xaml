@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:HuertoApp.ViewModels"
+             xmlns:models="clr-namespace:HuertoApp.Models"
              x:Class="hustle_garden.Views.NotasPage"
              Title="Notas del Huerto">
 
@@ -70,13 +71,13 @@
                                         TitleColor="#66BB6A"
                                         Margin="5,0">
                                     <Picker.ItemsSource>
-                                        <x:Array Type="{x:Type x:String}">
-                                            <x:String>General</x:String>
-                                            <x:String>Clima</x:String>
-                                            <x:String>Plagas</x:String>
-                                            <x:String>Fertilizacion</x:String>
-                                            <x:String>Observacion</x:String>
-                                            <x:String>Recordatorio</x:String>
+                                        <x:Array Type="{x:Type models:CategoriaNota}">
+                                            <models:CategoriaNota>General</models:CategoriaNota>
+                                            <models:CategoriaNota>Clima</models:CategoriaNota>
+                                            <models:CategoriaNota>Plagas</models:CategoriaNota>
+                                            <models:CategoriaNota>Fertilizacion</models:CategoriaNota>
+                                            <models:CategoriaNota>Observacion</models:CategoriaNota>
+                                            <models:CategoriaNota>Recordatorio</models:CategoriaNota>
                                         </x:Array>
                                     </Picker.ItemsSource>
                                 </Picker>
@@ -213,15 +214,31 @@
                                             </Border.Shadow>
                                             
                                             <VerticalStackLayout Padding="15" Spacing="10">
-                                                <HorizontalStackLayout Spacing="8">
-                                                    <Label Text="📄" FontSize="20" VerticalOptions="Center"/>
-                                                    <Label Text="{Binding Titulo}" 
-                                                           FontSize="17" 
-                                                           FontAttributes="Bold" 
-                                                           TextColor="#1B5E20"
-                                                           VerticalOptions="Center"
-                                                           HorizontalOptions="FillAndExpand"/>
-                                                </HorizontalStackLayout>
+                                                <Grid ColumnDefinitions="*,Auto">
+                                                    <HorizontalStackLayout Grid.Column="0" Spacing="8">
+                                                        <Label Text="📄" FontSize="20" VerticalOptions="Center"/>
+                                                        <Label Text="{Binding Titulo}" 
+                                                               FontSize="17" 
+                                                               FontAttributes="Bold" 
+                                                               TextColor="#1B5E20"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="FillAndExpand"/>
+                                                    </HorizontalStackLayout>
+
+                                                    <!-- Botón de eliminar simplificado -->
+                                                    <Button Grid.Column="1"
+                                                            Text="🗑️" 
+                                                            FontSize="24"
+                                                            BackgroundColor="Transparent"
+                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EliminarNotaCommand}"
+                                                            CommandParameter="{Binding .}"
+                                                            WidthRequest="40"
+                                                            HeightRequest="40"
+                                                            Padding="0"
+                                                            Margin="0"
+                                                            HorizontalOptions="End"
+                                                            VerticalOptions="Center"/>
+                                                </Grid>
 
                                                 <Border StrokeShape="RoundRectangle 10" 
                                                         Padding="10,5"
@@ -229,12 +246,12 @@
                                                         HorizontalOptions="Start">
                                                     <Border.Background>
                                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                            <GradientStop Color="#8E24AA" Offset="0.0"/>
-                                                            <GradientStop Color="#AB47BC" Offset="1.0"/>
+                                                            <GradientStop Color="{Binding Categoria, Converter={StaticResource CategoriaToPrimaryColorConverter}}" Offset="0.0"/>
+                                                            <GradientStop Color="{Binding Categoria, Converter={StaticResource CategoriaToSecondaryColorConverter}}" Offset="1.0"/>
                                                         </LinearGradientBrush>
                                                     </Border.Background>
                                                     <HorizontalStackLayout Spacing="5">
-                                                        <Label Text="🏷️" FontSize="12"/>
+                                                        <Label Text="{Binding Categoria, Converter={StaticResource CategoriaToEmojiConverter}}" FontSize="12"/>
                                                         <Label Text="{Binding Categoria}" 
                                                                FontSize="12" 
                                                                TextColor="White"

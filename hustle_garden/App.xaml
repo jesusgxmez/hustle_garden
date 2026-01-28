@@ -13,6 +13,9 @@
             
             <converters:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter"/>
             <converters:IsNotNullConverter x:Key="IsNotNullConverter"/>
+            <converters:CategoriaToEmojiConverter x:Key="CategoriaToEmojiConverter"/>
+            <converters:CategoriaToPrimaryColorConverter x:Key="CategoriaToPrimaryColorConverter"/>
+            <converters:CategoriaToSecondaryColorConverter x:Key="CategoriaToSecondaryColorConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
