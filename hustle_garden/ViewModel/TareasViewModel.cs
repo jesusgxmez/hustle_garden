@@ -57,22 +57,44 @@ public class TareasViewModel
         CargarDatos();
     }
 
+    // Método público para recargar plantas cuando se muestra la página
+    public async Task RecargarPlantas()
+    {
+        try
+        {
+            var plantas = await _context.Plantas.ToListAsync();
+            Plantas.Clear();
+            foreach (var planta in plantas)
+            {
+                Plantas.Add(planta);
+            }
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"Error al recargar plantas: {ex.Message}", "OK");
+        }
+    }
+
     async void CargarDatos()
     {
         try
         {
             var plantas = await _context.Plantas.ToListAsync();
-            Plantas = new ObservableCollection<Planta>(plantas);
+            Plantas.Clear();
+            foreach (var planta in plantas)
+            {
+                Plantas.Add(planta);
+            }
             
             await CargarTareas();
         }
         catch (Exception ex)
         {
             await Application.Current.MainPage.DisplayAlert("Error", $"Error al cargar datos: {ex.Message}", "OK");
-            Plantas = new ObservableCollection<Planta>();
-            Tareas = new ObservableCollection<Tarea>();
-            TareasPendientes = new ObservableCollection<Tarea>();
-            TareasCompletadas = new ObservableCollection<Tarea>();
+            Plantas.Clear();
+            Tareas.Clear();
+            TareasPendientes.Clear();
+            TareasCompletadas.Clear();
         }
     }
 
@@ -87,16 +109,25 @@ public class TareasViewModel
                 .ThenBy(t => t.FechaVencimiento)
                 .ToListAsync();
 
-            Tareas = new ObservableCollection<Tarea>(tareas);
-            TareasPendientes = new ObservableCollection<Tarea>(tareas.Where(t => !t.Completada));
-            TareasCompletadas = new ObservableCollection<Tarea>(tareas.Where(t => t.Completada));
+            Tareas.Clear();
+            TareasPendientes.Clear();
+            TareasCompletadas.Clear();
+            
+            foreach (var tarea in tareas)
+            {
+                Tareas.Add(tarea);
+                if (tarea.Completada)
+                    TareasCompletadas.Add(tarea);
+                else
+                    TareasPendientes.Add(tarea);
+            }
         }
         catch (Exception ex)
         {
             Application.Current.MainPage.DisplayAlert("Error", $"Error al cargar tareas: {ex.Message}", "OK");
-            Tareas = new ObservableCollection<Tarea>();
-            TareasPendientes = new ObservableCollection<Tarea>();
-            TareasCompletadas = new ObservableCollection<Tarea>();
+            Tareas.Clear();
+            TareasPendientes.Clear();
+            TareasCompletadas.Clear();
         }
     }
 
@@ -227,5 +258,12 @@ public class TareasViewModel
         PrioridadNueva = PrioridadTarea.Media;
         PrioridadSeleccionada = "Media";
         PlantaSeleccionada = null;
+    }
+
+    // Método público para recargar todos los datos cuando se muestra la página
+    public async Task RecargarDatos()
+    {
+        await RecargarPlantas();
+        await CargarTareas();
     }
 }

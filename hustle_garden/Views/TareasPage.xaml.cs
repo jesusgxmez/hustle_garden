@@ -14,6 +14,14 @@ public partial class TareasPage : ContentPage
         BindingContext = viewModel = vm;
     }
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        // Recargar las plantas cada vez que se muestre la página
+        // Esto asegura que las plantas recién agregadas estén disponibles
+        await viewModel.RecargarPlantas();
+    }
+
     void OnCheckboxChanged(object sender, CheckedChangedEventArgs e)
     {
         if (_isUpdating) return;
