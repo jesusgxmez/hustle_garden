@@ -19,6 +19,8 @@ public class ValidationService : IValidationService
     private const double MAX_DAYS_TO_HARVEST = 365;
     private const double MAX_WATER_LITERS = 1000;
     private const double MAX_HARVEST_KG = 10000;
+    private const double MIN_WATER_LITERS = 0.1; // Mínimo 0.1 litros (100ml)
+    private const double MIN_HARVEST_KG = 0.01; // Mínimo 0.01 kg (10 gramos)
 
     public ValidationResult ValidatePlantName(string nombre)
     {
@@ -148,6 +150,11 @@ public class ValidationService : IValidationService
             return ValidationResult.Failure("La cantidad de agua debe ser mayor a 0");
         }
 
+        if (liters < MIN_WATER_LITERS)
+        {
+            return ValidationResult.Failure($"La cantidad de agua debe ser al menos {MIN_WATER_LITERS} litros (100ml)");
+        }
+
         if (liters > MAX_WATER_LITERS)
         {
             return ValidationResult.Failure($"La cantidad de agua no puede exceder {MAX_WATER_LITERS} litros");
@@ -161,6 +168,11 @@ public class ValidationService : IValidationService
         if (kg <= 0)
         {
             return ValidationResult.Failure("La cantidad cosechada debe ser mayor a 0");
+        }
+
+        if (kg < MIN_HARVEST_KG)
+        {
+            return ValidationResult.Failure($"La cantidad cosechada debe ser al menos {MIN_HARVEST_KG} kg (10 gramos)");
         }
 
         if (kg > MAX_HARVEST_KG)
