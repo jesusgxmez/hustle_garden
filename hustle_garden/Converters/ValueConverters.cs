@@ -21,7 +21,6 @@ public class IsNotNullConverter : IValueConverter
     {
         bool isNotNull = value != null;
         
-        // Si el parámetro es "Invert", invertir el resultado
         if (parameter is string param && param.Equals("Invert", StringComparison.OrdinalIgnoreCase))
         {
             return !isNotNull;

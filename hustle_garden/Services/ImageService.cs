@@ -89,14 +89,12 @@ public class ImageService : IImageService
                 return ImageResult.Cancelled();
             }
 
-            // Validar tamaño del archivo
             using var stream = await result.OpenReadAsync();
             if (stream.Length > MAX_IMAGE_SIZE)
             {
                 return ImageResult.Failure("La imagen no puede superar 10MB");
             }
 
-            // Guardar el archivo en el directorio de la aplicación
             var localPath = Path.Combine(FileSystem.AppDataDirectory, $"{Guid.NewGuid()}{Path.GetExtension(result.FileName)}");
             
             using var fileStream = File.OpenWrite(localPath);
@@ -133,7 +131,7 @@ public class ImageService : IImageService
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-            return "default_plant.png"; // Imagen por defecto
+            return "default_plant.png"; 
         }
 
         return File.Exists(path) ? path : "default_plant.png";
@@ -143,7 +141,6 @@ public class ImageService : IImageService
     {
         try
         {
-            // Validar tamaño del archivo
             using var stream = await photo.OpenReadAsync();
             if (stream.Length > MAX_IMAGE_SIZE)
             {

@@ -10,16 +10,13 @@ namespace hustle_garden
             
             Routing.RegisterRoute("DetallePlantaPage", typeof(DetallePlantaPage));
             
-            // Escuchar cuando cambia la pestaña seleccionada
             this.PropertyChanged += OnShellPropertyChanged;
         }
 
         private async void OnShellPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            // Solo actuar cuando cambia la pestaña actual
             if (e.PropertyName == nameof(CurrentItem))
             {
-                // Solo hacer Pop si hay páginas en la pila
                 if (Navigation.NavigationStack.Count > 1)
                 {
                     await Navigation.PopAsync();

@@ -16,10 +16,8 @@ public class Tarea
     public bool Completada { get; set; }
     public PrioridadTarea Prioridad { get; set; } = PrioridadTarea.Media;
     
-    // Navegación
     public Planta? Planta { get; set; }
     
-    // Propiedades calculadas
     public bool EstaVencida => FechaVencimiento.HasValue && FechaVencimiento.Value < DateTime.Now && !Completada;
 }
 

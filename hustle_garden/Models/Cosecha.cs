@@ -3,7 +3,6 @@ using PropertyChanged;
 
 namespace HuertoApp.Models;
 
-//Modelo de la cosecha
 
 [AddINotifyPropertyChangedInterface]
 public class Cosecha
@@ -17,7 +16,6 @@ public class Cosecha
     public string? Notas { get; set; }
     public string? FotoPath { get; set; }
     
-    // Navegación
     public Planta? Planta { get; set; }
 }
 

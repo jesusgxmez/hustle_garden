@@ -41,7 +41,6 @@ public class TareasViewModel
         _context = context;
         _validationService = validationService;
         
-        // Inicializar colecciones vacías primero
         Tareas = new ObservableCollection<Tarea>();
         TareasPendientes = new ObservableCollection<Tarea>();
         TareasCompletadas = new ObservableCollection<Tarea>();
@@ -57,7 +56,6 @@ public class TareasViewModel
         CargarDatos();
     }
 
-    // Método público para recargar plantas cuando se muestra la página
     public async Task RecargarPlantas()
     {
         try
@@ -157,7 +155,6 @@ public class TareasViewModel
 
         try
         {
-            // Convertir el string seleccionado a enum
             if (!string.IsNullOrWhiteSpace(PrioridadSeleccionada) && 
                 Enum.TryParse<PrioridadTarea>(PrioridadSeleccionada, out var prioridad))
             {
@@ -181,7 +178,6 @@ public class TareasViewModel
             await CargarTareas();
             LimpiarFormulario();
             
-            // Cerrar el popup
             MostrarPopupNuevaTarea = false;
         }
         catch (Exception ex)
@@ -199,16 +195,13 @@ public class TareasViewModel
             tarea.Completada = !tarea.Completada;
             await _context.SaveChangesAsync();
 
-            // Mover la tarea entre colecciones sin recargar todo
             if (tarea.Completada)
             {
-                // Se completó: mover de pendientes a completadas
                 TareasPendientes.Remove(tarea);
                 TareasCompletadas.Add(tarea);
             }
             else
             {
-                // Se desmarcó: mover de completadas a pendientes
                 TareasCompletadas.Remove(tarea);
                 TareasPendientes.Add(tarea);
             }
@@ -216,7 +209,6 @@ public class TareasViewModel
         catch (Exception ex)
         {
             await Application.Current.MainPage.DisplayAlert("Error", $"No se pudo actualizar la tarea: {ex.Message}", "OK");
-            // Revertir el cambio en caso de error
             tarea.Completada = !tarea.Completada;
         }
     }
@@ -260,7 +252,6 @@ public class TareasViewModel
         PlantaSeleccionada = null;
     }
 
-    // Método público para recargar todos los datos cuando se muestra la página
     public async Task RecargarDatos()
     {
         await RecargarPlantas();

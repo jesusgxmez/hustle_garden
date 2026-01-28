@@ -15,12 +15,9 @@ public class HuertoContext : DbContext
     {
         SQLitePCL.Batteries_V2.Init();
         
-        // Asegurar que la base de datos existe (sin borrarla)
         this.Database.EnsureCreated();
         
-        // NOTA: Si necesitas resetear la BD por cambios en el esquema, descomenta temporalmente estas líneas:
-        // this.Database.EnsureDeleted();
-        // this.Database.EnsureCreated();
+       
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,7 +30,6 @@ public class HuertoContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         
-        // Configurar relaciones
         modelBuilder.Entity<Riego>()
             .HasOne(r => r.Planta)
             .WithMany(p => p.Riegos)

@@ -17,8 +17,7 @@ public partial class TareasPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        // Recargar las plantas cada vez que se muestre la página
-        // Esto asegura que las plantas recién agregadas estén disponibles
+     
         await viewModel.RecargarPlantas();
     }
 
@@ -32,7 +31,6 @@ public partial class TareasPage : ContentPage
         {
             if (sender is CheckBox checkbox && checkbox.BindingContext is Tarea tarea)
             {
-                // Ejecutar el comando de forma asíncrona sin esperar
                 Task.Run(async () =>
                 {
                     await Task.Run(() => viewModel.CompletarTareaCommand.Execute(tarea));
@@ -41,7 +39,6 @@ public partial class TareasPage : ContentPage
         }
         finally
         {
-            // Esperar un poco antes de permitir otro cambio
             Task.Delay(100).ContinueWith(_ => _isUpdating = false);
         }
     }

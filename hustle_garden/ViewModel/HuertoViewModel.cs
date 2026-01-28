@@ -125,7 +125,6 @@ public class HuertoViewModel
 
     async Task<bool> GuardarPlanta()
     {
-        // Validar nombre
         var nombreValidacion = _validationService.ValidatePlantName(NombreNuevaPlanta);
         if (!nombreValidacion.IsValid)
         {
@@ -133,7 +132,6 @@ public class HuertoViewModel
             return false;
         }
 
-        // Validar días hasta cosecha
         var diasValidacion = ValidationService.ValidateDaysToHarvest(DiasHastaCosecha);
         if (!diasValidacion.IsValid)
         {
@@ -141,7 +139,6 @@ public class HuertoViewModel
             return false;
         }
 
-        // Validar imagen si existe
         if (!string.IsNullOrEmpty(FotoTemporal))
         {
             var imagenValidacion = _validationService.ValidateImagePath(FotoTemporal);
@@ -226,7 +223,6 @@ public class HuertoViewModel
 
         try
         {
-            // Eliminar imagen si existe
             if (!string.IsNullOrEmpty(planta.FotoPath))
             {
                 await _imageService.DeleteImageAsync(planta.FotoPath);

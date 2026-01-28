@@ -19,8 +19,8 @@ public class ValidationService : IValidationService
     private const double MAX_DAYS_TO_HARVEST = 365;
     private const double MAX_WATER_LITERS = 1000;
     private const double MAX_HARVEST_KG = 10000;
-    private const double MIN_WATER_LITERS = 0.1; // Mínimo 0.1 litros (100ml)
-    private const double MIN_HARVEST_KG = 0.01; // Mínimo 0.01 kg (10 gramos)
+    private const double MIN_WATER_LITERS = 0.1; 
+    private const double MIN_HARVEST_KG = 0.01; 
 
     public ValidationResult ValidatePlantName(string nombre)
     {
@@ -39,7 +39,6 @@ public class ValidationService : IValidationService
             return ValidationResult.Failure($"El nombre no puede exceder {MAX_PLANT_NAME_LENGTH} caracteres");
         }
 
-        // Validar que contiene al menos una letra
         if (!Regex.IsMatch(nombre, @"[a-zA-ZáéíóúÁÉÍÓÚñÑ]"))
         {
             return ValidationResult.Failure("El nombre debe contener al menos una letra");
@@ -102,7 +101,7 @@ public class ValidationService : IValidationService
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-            return ValidationResult.Success(); // Las imágenes son opcionales
+            return ValidationResult.Success(); 
         }
 
         if (!File.Exists(path))
@@ -118,7 +117,6 @@ public class ValidationService : IValidationService
             return ValidationResult.Failure("Formato de imagen no válido. Use JPG, PNG, GIF o BMP");
         }
 
-        // Validar tamaño del archivo (máximo 10MB)
         var fileInfo = new FileInfo(path);
         if (fileInfo.Length > 10 * 1024 * 1024)
         {
