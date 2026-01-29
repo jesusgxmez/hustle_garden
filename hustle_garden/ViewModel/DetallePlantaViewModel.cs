@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HuertoApp.ViewModels;
 
+/// <summary>
+/// ViewModel para la página de detalle de una planta.
+/// Maneja la visualización y registro de riegos, cosechas y cambios de estado.
+/// </summary>
 [AddINotifyPropertyChangedInterface]
 [QueryProperty(nameof(PlantaId), "plantaId")]
 public class DetallePlantaViewModel
@@ -16,27 +20,87 @@ public class DetallePlantaViewModel
     private readonly IValidationService _validationService;
     private readonly IImageService _imageService;
 
+    /// <summary>
+    /// Identificador de la planta a mostrar.
+    /// </summary>
     public int PlantaId { get; set; }
+    /// <summary>
+    /// Planta actual mostrada en detalle.
+    /// </summary>
     public Planta Planta { get; set; }
+    /// <summary>
+    /// Colección de riegos recientes de la planta.
+    /// </summary>
     public ObservableCollection<Riego> Riegos { get; set; }
+    /// <summary>
+    /// Colección de cosechas de la planta.
+    /// </summary>
     public ObservableCollection<Cosecha> Cosechas { get; set; }
     
+    /// <summary>
+    /// Cantidad de agua para el nuevo riego.
+    /// </summary>
     public double CantidadRiegoNuevo { get; set; }
+    /// <summary>
+    /// Cantidad cosechada para la nueva cosecha.
+    /// </summary>
     public double CantidadCosechaNueva { get; set; }
+    /// <summary>
+    /// Calidad de la nueva cosecha.
+    /// </summary>
     public string CalidadCosechaNueva { get; set; }
+    /// <summary>
+    /// Índice seleccionado de calidad en el picker.
+    /// </summary>
     public int SelectedIndexCalidad { get; set; } = -1;
+    /// <summary>
+    /// Notas para la nueva cosecha.
+    /// </summary>
     public string NotasCosechaNueva { get; set; }
+    /// <summary>
+    /// Ruta temporal de foto para la cosecha.
+    /// </summary>
     public string FotoTemporal { get; set; }
     
+    /// <summary>
+    /// Comando para registrar un nuevo riego.
+    /// </summary>
     public ICommand RegistrarRiegoCommand { get; }
+    /// <summary>
+    /// Comando para registrar una nueva cosecha.
+    /// </summary>
     public ICommand RegistrarCosechaCommand { get; }
+    /// <summary>
+    /// Comando para cambiar el estado de la planta.
+    /// </summary>
     public ICommand CambiarEstadoCommand { get; }
+    /// <summary>
+    /// Comando para editar la planta.
+    /// </summary>
     public ICommand EditarPlantaCommand { get; }
+    /// <summary>
+    /// Comando para tomar una foto de la cosecha.
+    /// </summary>
     public ICommand TomarFotoCosechaCommand { get; }
+    /// <summary>
+    /// Comando para seleccionar una foto de galería.
+    /// </summary>
     public ICommand SeleccionarFotoCosechaGaleriaCommand { get; }
+    /// <summary>
+    /// Comando para seleccionar una foto desde archivo.
+    /// </summary>
     public ICommand SeleccionarFotoCosechaArchivoCommand { get; }
+    /// <summary>
+    /// Comando para ver historial de riegos.
+    /// </summary>
     public ICommand VerHistorialRiegosCommand { get; }
 
+    /// <summary>
+    /// Inicializa una nueva instancia de DetallePlantaViewModel.
+    /// </summary>
+    /// <param name="context">Contexto de base de datos.</param>
+    /// <param name="validationService">Servicio de validación.</param>
+    /// <param name="imageService">Servicio de manejo de imágenes.</param>
     public DetallePlantaViewModel(HuertoContext context, IValidationService validationService, IImageService imageService)
     {
         _context = context;

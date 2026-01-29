@@ -17,8 +17,8 @@
 		<BoxView>
 			<BoxView.Background>
 				<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-					<GradientStop Color="#E8F5E9" Offset="0.0"/>
-					<GradientStop Color="#F1F8E9" Offset="1.0"/>
+					<GradientStop Color="#C8E6C9" Offset="0.0"/>
+					<GradientStop Color="#DCEDC8" Offset="1.0"/>
 				</LinearGradientBrush>
 			</BoxView.Background>
 		</BoxView>
@@ -32,7 +32,11 @@
 					<ScrollView Grid.Row="1">
 						<CollectionView ItemsSource="{Binding TareasPendientes}" Margin="15">
 							<CollectionView.EmptyView>
-								<Label Text="No hay tareas pendientes" TextColor="Black" FontSize="16" HorizontalOptions="Center" Margin="0,20"/>
+								<VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20" Spacing="10">
+									<Label Text="📋" FontSize="48" HorizontalOptions="Center"/>
+									<Label Text="No hay tareas pendientes" TextColor="#1B5E20" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center"/>
+									<Label Text="¡Genial! Todo al día" TextColor="#424242" FontSize="14" HorizontalOptions="Center"/>
+								</VerticalStackLayout>
 							</CollectionView.EmptyView>
 							<CollectionView.ItemTemplate>
 								<DataTemplate>
@@ -60,7 +64,11 @@
 					<ScrollView Grid.Row="1">
 						<CollectionView ItemsSource="{Binding TareasCompletadas}" Margin="15">
 							<CollectionView.EmptyView>
-								<Label Text="Aún no hay tareas completadas" TextColor="Black" FontSize="16" HorizontalOptions="Center" Margin="0,20"/>
+								<VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20" Spacing="10">
+									<Label Text="✅" FontSize="48" HorizontalOptions="Center"/>
+									<Label Text="Aún no hay tareas completadas" TextColor="#1B5E20" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center"/>
+									<Label Text="Completa una tarea para verla aquí" TextColor="#424242" FontSize="14" HorizontalOptions="Center"/>
+								</VerticalStackLayout>
 							</CollectionView.EmptyView>
 							<CollectionView.ItemTemplate>
 								<DataTemplate>

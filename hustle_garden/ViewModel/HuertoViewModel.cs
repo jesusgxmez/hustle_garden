@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HuertoApp.ViewModels;
 
+/// <summary>
+/// ViewModel principal para la gestión del huerto y las plantas.
+/// Maneja operaciones CRUD de plantas, captura de imágenes y filtrado.
+/// </summary>
 [AddINotifyPropertyChangedInterface]
 public class HuertoViewModel
 {
@@ -15,31 +19,97 @@ public class HuertoViewModel
     private readonly IValidationService _validationService;
     private readonly IImageService _imageService;
 
+    /// <summary>
+    /// Colección de todas las plantas del huerto.
+    /// </summary>
     public ObservableCollection<Planta> Plantas { get; set; }
+    /// <summary>
+    /// Colección de plantas que necesitan riego.
+    /// </summary>
     public ObservableCollection<Planta> PlantasQueSiembraRiego { get; set; }
     
+    /// <summary>
+    /// Nombre de la nueva planta a agregar.
+    /// </summary>
     public string NombreNuevaPlanta { get; set; }
+    /// <summary>
+    /// Variedad de la nueva planta (opcional).
+    /// </summary>
     public string VariedadNuevaPlanta { get; set; }
+    /// <summary>
+    /// Ubicación de la nueva planta (opcional).
+    /// </summary>
     public string UbicacionNuevaPlanta { get; set; }
+    /// <summary>
+    /// Días estimados hasta la cosecha.
+    /// </summary>
     public int DiasHastaCosecha { get; set; }
+    /// <summary>
+    /// Ruta temporal de la foto seleccionada.
+    /// </summary>
     public string FotoTemporal { get; set; }
     
+    /// <summary>
+    /// Planta actualmente seleccionada.
+    /// </summary>
     public Planta PlantaSeleccionada { get; set; }
     
+    /// <summary>
+    /// Filtro de estado actual ("Todas" o nombre de un estado).
+    /// </summary>
     public string FiltroEstado { get; set; } = "Todas";
 
+    /// <summary>
+    /// Comando para borrar una planta.
+    /// </summary>
     public ICommand BorrarPlantaCommand { get; }
+    /// <summary>
+    /// Comando para tomar una foto con la cámara.
+    /// </summary>
     public ICommand TomarFotoCommand { get; }
+    /// <summary>
+    /// Comando para guardar una nueva planta.
+    /// </summary>
     public ICommand GuardarPlantaCommand { get; }
+    /// <summary>
+    /// Comando para editar una planta existente.
+    /// </summary>
     public ICommand EditarPlantaCommand { get; }
+    /// <summary>
+    /// Comando para cambiar el estado de una planta.
+    /// </summary>
     public ICommand CambiarEstadoPlantaCommand { get; }
+    /// <summary>
+    /// Comando para filtrar plantas por estado.
+    /// </summary>
     public ICommand FiltrarPorEstadoCommand { get; }
+    /// <summary>
+    /// Comando para ver el detalle de una planta.
+    /// </summary>
     public ICommand VerDetallePlantaCommand { get; }
+    /// <summary>
+    /// Comando para seleccionar una foto de la galería.
+    /// </summary>
     public ICommand SeleccionarGaleriaCommand { get; }
+    /// <summary>
+    /// Comando para seleccionar un archivo de imagen.
+    /// </summary>
     public ICommand SeleccionarArchivoCommand { get; }
+    /// <summary>
+    /// Comando para eliminar la foto temporal.
+    /// </summary>
     public ICommand EliminarFotoCommand { get; }
+    /// <summary>
+    /// Comando para mostrar el popup de agregar planta.
+    /// </summary>
     public ICommand MostrarPopupAgregarPlantaCommand { get; }
 
+    /// <summary>
+    /// Inicializa una nueva instancia de HuertoViewModel.
+    /// </summary>
+    /// <param name="context">Contexto de base de datos.</param>
+    /// <param name="validationService">Servicio de validación.</param>
+    /// <param name="imageService">Servicio de manejo de imágenes.</param>
     public HuertoViewModel(HuertoContext context, IValidationService validationService, IImageService imageService)
     {
         _context = context;

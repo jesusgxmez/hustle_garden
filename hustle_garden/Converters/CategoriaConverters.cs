@@ -3,6 +3,9 @@ using HuertoApp.Models;
 
 namespace HuertoApp.Converters;
 
+/// <summary>
+/// Convierte una categoría de nota a un emoji representativo.
+/// </summary>
 public class CategoriaToEmojiConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -29,6 +32,9 @@ public class CategoriaToEmojiConverter : IValueConverter
     }
 }
 
+/// <summary>
+/// Convierte una categoría de nota a su color primario asociado.
+/// </summary>
 public class CategoriaToPrimaryColorConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -55,6 +61,9 @@ public class CategoriaToPrimaryColorConverter : IValueConverter
     }
 }
 
+/// <summary>
+/// Convierte una categoría de nota a su color secundario asociado.
+/// </summary>
 public class CategoriaToSecondaryColorConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

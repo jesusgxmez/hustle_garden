@@ -19,8 +19,8 @@
         <BoxView Grid.RowSpan="2">
             <BoxView.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#E8F5E9" Offset="0.0"/>
-                    <GradientStop Color="#F1F8E9" Offset="1.0"/>
+                    <GradientStop Color="#C8E6C9" Offset="0.0"/>
+                    <GradientStop Color="#DCEDC8" Offset="1.0"/>
                 </LinearGradientBrush>
             </BoxView.Background>
         </BoxView>
@@ -36,8 +36,14 @@
                        TextColor="#1B5E20"
                        Margin="0,10,0,15"/>
                 
-                <CollectionView ItemsSource="{Binding Plantas}"
-                                EmptyView="🌱 No hay plantas aún. ¡Toca el botón + para comenzar!">
+                <CollectionView ItemsSource="{Binding Plantas}">
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="40" Spacing="15">
+                            <Label Text="🌱" FontSize="60" HorizontalOptions="Center"/>
+                            <Label Text="No hay plantas aún" FontSize="24" FontAttributes="Bold" TextColor="#1B5E20" HorizontalOptions="Center"/>
+                            <Label Text="¡Toca el botón + para comenzar!" FontSize="18" TextColor="#424242" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <SwipeView Margin="0,0,0,30">

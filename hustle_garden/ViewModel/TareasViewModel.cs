@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HuertoApp.ViewModels;
 
+/// <summary>
+/// ViewModel para la gestión de tareas del huerto.
+/// Maneja creación, completado, eliminación y filtrado de tareas.
+/// </summary>
 [AddINotifyPropertyChangedInterface]
 public class TareasViewModel
 {

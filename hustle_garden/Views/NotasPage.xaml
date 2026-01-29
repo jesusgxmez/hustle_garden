@@ -10,8 +10,8 @@
         <BoxView>
             <BoxView.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#E8F5E9" Offset="0.0"/>
-                    <GradientStop Color="#F1F8E9" Offset="1.0"/>
+                    <GradientStop Color="#C8E6C9" Offset="0.0"/>
+                    <GradientStop Color="#DCEDC8" Offset="1.0"/>
                 </LinearGradientBrush>
             </BoxView.Background>
         </BoxView>
@@ -191,8 +191,14 @@
                     
                     <ScrollView Grid.Row="1">
                         <CollectionView ItemsSource="{Binding Notas}"
-                                        Margin="15"
-                                        EmptyView="📝 No hay notas aún. ¡Empieza a escribir!">
+                                        Margin="15">
+                            <CollectionView.EmptyView>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="40" Spacing="15">
+                                    <Label Text="📝" FontSize="60" HorizontalOptions="Center"/>
+                                    <Label Text="No hay notas aún" FontSize="22" FontAttributes="Bold" TextColor="#1B5E20" HorizontalOptions="Center"/>
+                                    <Label Text="¡Empieza a escribir!" FontSize="18" TextColor="#424242" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <SwipeView Margin="0,6">

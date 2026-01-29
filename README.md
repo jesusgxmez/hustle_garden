@@ -1,56 +1,368 @@
-# Hustle Garden 2 🪴
+# 🌱 Hustle Garden - Aplicación de Gestión de Huerto
 
-![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
-![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
-![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+<div align="center">
 
-**Hustle Garden 2** es una evolución sofisticada de nuestro rastreador de productividad multiplataforma. Utilizando **.NET MAUI**, esta aplicación gamifica la formación de hábitos, transformando el cumplimiento de tareas en el crecimiento de un ecosistema botánico digital. 
+![.NET MAUI](https://img.shields.io/badge/.NET%20MAUI-10.0-512BD4?style=for-the-badge&logo=.net)
+![Entity Framework](https://img.shields.io/badge/EF%20Core-10.0-512BD4?style=for-the-badge&logo=.net)
+![SQLite](https://img.shields.io/badge/SQLite-3.0-003B57?style=for-the-badge&logo=sqlite)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
----
+Una aplicación multiplataforma para gestionar tu huerto doméstico de forma completa y sencilla.
 
-## ✨ Características Principales
+[Características](#-características) • [Instalación](#-instalación) • [Documentación](#-documentación) • [Contribuir](#-contribuir)
 
-* **🎨 UI/UX Orgánica:** Diseño refinado utilizando controles `Border`, gradientes y sombras para una sensación táctil y moderna.
-* **🏗️ Arquitectura MVVM:** Separación limpia de responsabilidades mediante el *Model-View-ViewModel*, facilitando el mantenimiento y la escalabilidad.
-* **📈 Evolución en Tiempo Real:** Algoritmo dinámico que traduce la consistencia del usuario en cambios visuales dentro del jardín.
-* **🚀 Alto Rendimiento:** Optimización nativa para Windows y Android, garantizando transiciones fluidas.
+</div>
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 📱 Acerca del Proyecto
 
-* **Framework:** .NET MAUI (.NET 8.0)
-* **Lenguaje:** C#
-* **Patrón de Diseño:** MVVM (CommunityToolkit.Mvvm)
-* **Maquetación:** XAML con estilos dinámicos.
-* **Persistencia:** SQLite para el almacenamiento local de hábitos y estados.
+**Hustle Garden** es una aplicación móvil desarrollada con .NET MAUI que te permite llevar un control completo de tu huerto o jardín. Registra tus plantas, gestiona riegos y cosechas, crea tareas pendientes, toma notas y visualiza estadísticas de productividad, todo en una interfaz intuitiva y moderna.
 
----
+### 🎯 ¿Para quién es?
 
-## 🚀 Instalación y Ejecución
-
-Para poner en marcha tu jardín digital, sigue estos pasos:
-
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone [https://github.com/leomggg/hustle_garden2.git](https://github.com/leomggg/hustle_garden2.git)
-    ```
-2.  **Abrir el Proyecto:**
-    Localiza y abre el archivo `.sln` en **Visual Studio 2022**.
-3.  **Configurar Cargas de Trabajo:**
-    Asegúrate de tener instalada la carga de trabajo de desarrollo para .NET MAUI.
-4.  **Desplegar:**
-    Selecciona el dispositivo de destino (Emulador Android o Windows Machine) y presiona `F5`.
+- 🏡 Horticultores domésticos que quieren organizar su huerto
+- 🌾 Personas que cultivan sus propios alimentos
+- 🌿 Aficionados a la jardinería que desean hacer seguimiento de sus plantas
+- 👨‍🌾 Cualquiera que quiera aprender y mejorar sus cultivos
 
 ---
 
-## 📂 Estructura del Repositorio
+## ✨ Características
 
-* `Models/`: Definición de las entidades de datos (Hábitos, Plantas).
-* `ViewModels/`: Lógica de negocio y gestión de estados de la interfaz.
-* `Views/`: Definición de la interfaz de usuario en XAML.
-* `Resources/`: Recursos multimedia, iconos y diccionarios de estilos.
+### 🌱 Gestión de Plantas
+- ➕ **Agregar plantas** con nombre, variedad, ubicación y foto
+- 📸 **Captura de fotos** desde la cámara o galería
+- 📅 **Seguimiento del ciclo de vida** con estados: Germinando, Creciendo, Floreciendo, Fructificando, Lista para Cosechar, Cosechada, Marchita
+- 🔍 **Vista detallada** de cada planta con toda su información
+- 🗑️ **Eliminar plantas** con confirmación de seguridad
+
+### 💧 Sistema de Riego
+- 📝 **Registrar riegos** con cantidad en litros y fecha
+- 📊 **Historial de riegos** por planta
+- ⚠️ **Alertas automáticas** de plantas que necesitan riego (más de 2 días sin regar)
+- 📈 **Seguimiento del consumo de agua**
+
+### 🌾 Registro de Cosechas
+- 🎯 **Registrar cosechas** con cantidad en kg
+- ⭐ **Calidad de cosecha**: Excelente, Buena, Regular o Pobre
+- 📸 **Fotos de cosechas** para documentar resultados
+- 📝 **Notas adicionales** sobre cada cosecha
+- 🔄 **Cambio automático** de estado de la planta a "Cosechada"
+
+### ✅ Gestión de Tareas
+- 📋 **Crear tareas** del huerto
+- 🔗 **Asociar tareas** a plantas específicas o tareas generales
+- 🎚️ **Prioridades**: Baja, Media, Alta, Urgente
+- ✔️ **Marcar como completadas** con checkbox
+- 📅 **Fechas de vencimiento** con indicador de vencidas
+- 👆 **Swipe para eliminar** tareas
+
+### 📝 Notas y Diario
+- 📄 **Crear notas** con título, contenido y foto
+- 🏷️ **Categorías**: General, Clima, Plagas, Fertilización, Observación, Recordatorio
+- 📅 **Ordenadas por fecha** para llevar un diario del huerto
+- 🖼️ **Adjuntar fotos** a cada nota
+- 🗑️ **Eliminar con swipe**
+
+### 📊 Estadísticas y Análisis
+- 📈 **Dashboard completo** con métricas clave:
+  - Total de plantas y plantas activas
+  - Total de cosechas y kg cosechados
+  - Plantas que necesitan riego
+  - Tareas pendientes
+- 📅 **Cosechas por mes** (últimos 6 meses)
+- 🏆 **Top 5 plantas más productivas**
+- 🔄 **Actualización en tiempo real**
+
+---
+
+## 🛠️ Tecnologías
+
+- **Framework:** .NET 10 con .NET MAUI
+- **Base de datos:** SQLite con Entity Framework Core
+- **Patrón:** MVVM (Model-View-ViewModel)
+- **Librerías:**
+  - PropertyChanged.Fody (INotifyPropertyChanged automático)
+  - Microsoft.EntityFrameworkCore.Sqlite
+  - MediaPicker para fotos
+- **Plataformas:** Android, iOS, Windows, macOS
+
+---
+
+## 📥 Instalación
+
+### Requisitos Previos
+
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) o [Visual Studio Code](https://code.visualstudio.com/)
+- Para desarrollo móvil:
+  - **Android:** Android SDK 21+
+  - **iOS:** Xcode 15+ (solo en macOS)
+  - **Windows:** Windows 10 SDK 19041+
+
+### Clonar el Repositorio
+
+```bash
+git clone https://github.com/jesusgxmez/hustle_garden.git
+cd hustle_garden
+```
+
+### Restaurar Dependencias
+
+```bash
+dotnet restore
+```
+
+### Compilar el Proyecto
+
+```bash
+dotnet build
+```
+
+### Ejecutar la Aplicación
+
+#### Android
+```bash
+dotnet build -t:Run -f net10.0-android
+```
+
+#### iOS (requiere macOS)
+```bash
+dotnet build -t:Run -f net10.0-ios
+```
+
+#### Windows
+```bash
+dotnet build -t:Run -f net10.0-windows10.0.19041.0
+```
+
+### Visual Studio
+
+1. Abrir `hustle_garden.sln`
+2. Seleccionar la plataforma de destino en la barra de herramientas
+3. Presionar F5 o hacer clic en "Ejecutar"
+
+---
+
+## 📖 Documentación
+
+### Documentación del Código (DocFX)
+
+El proyecto incluye documentación completa generada con DocFX. Para visualizarla:
+
+#### Opción 1: Script Automatizado (Recomendado)
+
+```powershell
+cd Documentacion
+.\GenerarDocumentacion.ps1 -Servir
+```
+
+Esto generará y abrirá automáticamente la documentación en http://localhost:8080
+
+#### Opción 2: Comandos Manuales
+
+```bash
+# Navegar a la carpeta de documentación
+cd Documentacion
+
+# Generar la documentación
+docfx docfx.json
+
+# Servir localmente
+docfx serve _site
+```
+
+Luego abrir en el navegador: http://localhost:8080
+
+#### Requisitos para DocFX
+
+Si DocFX no está instalado:
+
+```bash
+dotnet tool install -g docfx
+```
+
+### Archivos de Documentación
+
+- 📄 **[DOCUMENTACION.md](hustle_garden/DOCUMENTACION.md)** - Documentación principal de la aplicación
+- 📄 **[DOCUMENTACION_RESUMEN.md](DOCUMENTACION_RESUMEN.md)** - Resumen de documentación XML y DocFX
+- 📄 **[DOCUMENTACION_INICIO_RAPIDO.md](DOCUMENTACION_INICIO_RAPIDO.md)** - Guía rápida
+- 📄 **[CAMBIOS_CONTRASTE.md](CAMBIOS_CONTRASTE.md)** - Mejoras de contraste visual
+- 📁 **[Documentacion/](Documentacion/)** - Carpeta completa de DocFX
+
+---
+
+## 🏗️ Estructura del Proyecto
+
+```
+hustle_garden/
+├── hustle_garden/                 # Proyecto principal .NET MAUI
+│   ├── Models/                    # Modelos de datos
+│   ├── ViewModels/               # ViewModels (MVVM)
+│   ├── Views/                    # Páginas XAML
+│   ├── Data/                     # DbContext y configuración de BD
+│   ├── Services/                 # Servicios (validación, imágenes)
+│   ├── Converters/               # Convertidores de valores
+│   ├── Resources/                # Recursos (imágenes, fuentes)
+│   └── Platforms/                # Código específico de plataforma
+├── HuertoApp.Core/               # Biblioteca compartida
+├── hustle_garden.Tests/          # Tests unitarios
+├── Documentacion/                # Documentación DocFX
+└── README.md                     # Este archivo
+```
+
+---
+
+## 🚀 Características Destacadas
+
+### 🎯 Patrón MVVM con Fody
+- Separación clara de responsabilidades
+- PropertyChanged.Fody para notificaciones automáticas
+- Binding bidireccional completo
+
+### 💾 Base de Datos Local
+- SQLite para almacenamiento local
+- Entity Framework Core como ORM
+- Relaciones configuradas con Fluent API
+- Migraciones automáticas
+
+### 🔄 Inyección de Dependencias
+- ViewModels y servicios registrados en el contenedor DI
+- Lifetime management adecuado
+- Constructor injection en páginas y ViewModels
+
+### 📱 Interfaz Moderna
+- Diseño con tema verde (huerto)
+- Cards con sombras y bordes redondeados
+- Gradientes y efectos visuales
+- SwipeView para acciones rápidas
+- Gestos táctiles intuitivos
+
+---
+
+## 🔧 Configuración Inicial
+
+### Primera Ejecución
+
+Después de ejecutar la aplicación por **primera vez**:
+
+1. Abrir `hustle_garden/Data/HuertoContext.cs`
+2. Comentar la línea `this.Database.EnsureDeleted();`
+
+```csharp
+public HuertoContext()
+{
+    SQLitePCL.Batteries_V2.Init();
+    
+    // COMENTAR después de la primera ejecución:
+    // this.Database.EnsureDeleted();
+    
+    this.Database.EnsureCreated();
+}
+```
+
+Esto evitará que se elimine la base de datos en cada ejecución.
+
+---
+
+## 🧪 Testing
+
+Ejecutar los tests unitarios:
+
+```bash
+dotnet test
+```
+
+---
+
+## 🗺️ Roadmap
+
+### 🎯 Versión Actual (v1.0)
+- ✅ CRUD completo de plantas
+- ✅ Sistema de riego
+- ✅ Registro de cosechas
+- ✅ Gestión de tareas
+- ✅ Notas con categorías
+- ✅ Estadísticas básicas
+- ✅ Documentación completa
+
+### 🚧 Próximas Versiones
+
+#### v1.1 - Mejoras de Productividad
+- [ ] Recordatorios con notificaciones locales
+- [ ] Modo oscuro
+- [ ] Exportar datos (CSV, Excel)
+- [ ] Búsqueda y filtros avanzados
+
+#### v1.2 - Análisis Avanzado
+- [ ] Gráficos interactivos (charts)
+- [ ] Predicciones de cosecha con IA
+- [ ] Comparativas entre temporadas
+- [ ] Reportes PDF
+
+#### v1.3 - Social y Cloud
+- [ ] Sincronización en la nube
+- [ ] Compartir en redes sociales
+- [ ] Comunidad de horticultores
+- [ ] Base de datos de plantas (wiki)
+
+#### v2.0 - Profesional
+- [ ] Calendario de siembra según clima
+- [ ] Geolocalización del huerto
+- [ ] Sensores IoT
+- [ ] Modo multi-huerto
+- [ ] Análisis de suelo
+
+---
+
+## 🤝 Contribuir
+
+¡Las contribuciones son bienvenidas! Si deseas contribuir:
+
+1. 🍴 Haz un fork del proyecto
+2. 🌿 Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. 💾 Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. 📤 Push a la rama (`git push origin feature/AmazingFeature`)
+5. 🔃 Abre un Pull Request
+
+### Guías de Contribución
+
+- Mantén el código limpio y documentado
+- Sigue el patrón MVVM
+- Agrega comentarios XML a clases y métodos públicos
+- Escribe tests para nuevas funcionalidades
+- Actualiza la documentación según corresponda
+
+---
+
+## 📋 Convenciones de Código
+
+- **C#:** Seguir las [convenciones de C#](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+- **XAML:** Indentación de 4 espacios
+- **Comentarios:** XML comments para documentación
+- **Commits:** Mensajes descriptivos en español
+
+---
+
+## 🐛 Reportar Bugs
+
+Si encuentras un bug, por favor [abre un issue](https://github.com/jesusgxmez/hustle_garden/issues) con:
+
+- 📝 Descripción detallada del problema
+- 🔄 Pasos para reproducirlo
+- 📱 Plataforma y versión del OS
+- 📸 Capturas de pantalla si es posible
+- 📋 Logs o mensajes de error
+
+---
+
+## 📞 Contacto
+
+**Desarrollador:** Jesús Gómez
+
+- GitHub: [@jesusgxmez](https://github.com/jesusgxmez)
+- Proyecto: [hustle_garden](https://github.com/jesusgxmez/hustle_garden)
 
 ---
 
@@ -59,9 +371,54 @@ Para poner en marcha tu jardín digital, sigue estos pasos:
 * **Leo Murillo** - [@leomggg](https://github.com/leomggg)
 * **Jesús Gómez** - [@jesusgxmez](https://github.com/jesusgxmez)
 * **Daniel Morales** - [@danielzetazz](https://github.com/danielzetazz)
-* **Iván Tejero** - [@tjerito](https://github.ccom/tjerito)
+* **Iván Tejero** - [@tjerito](https://github.com/tjerito)
 
 ---
-<p align="center">
-  Si este proyecto te ha ayudado, ¡no olvides darle una ⭐!
-</p>
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+## 🙏 Agradecimientos
+
+- 🎨 Comunidad de .NET MAUI
+- 📚 Documentación de Microsoft
+- 🌱 Inspirado en la pasión por la horticultura sostenible
+- 💚 A todos los que cultivan sus propios alimentos
+
+---
+
+## 📊 Estado del Proyecto
+
+| Aspecto | Estado |
+|---------|--------|
+| Compilación | ✅ Exitosa |
+| Tests | ✅ Pasando |
+| Documentación | ✅ Completa |
+| Patrón MVVM | ✅ Implementado |
+| Base de Datos | ✅ Funcional |
+| UI/UX | ✅ Diseñada |
+| Multiplataforma | ✅ Soportado |
+
+---
+
+## 📚 Recursos Adicionales
+
+- [Documentación de .NET MAUI](https://docs.microsoft.com/dotnet/maui/)
+- [Entity Framework Core](https://docs.microsoft.com/ef/core/)
+- [SQLite](https://www.sqlite.org/)
+- [Patrón MVVM](https://docs.microsoft.com/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
+
+---
+
+<div align="center">
+
+**Hecho con 💚 por horticultores, para horticultores**
+
+⭐ Si te gusta este proyecto, ¡dale una estrella!
+
+[⬆ Volver arriba](#-hustle-garden---aplicación-de-gestión-de-huerto)
+
+</div>

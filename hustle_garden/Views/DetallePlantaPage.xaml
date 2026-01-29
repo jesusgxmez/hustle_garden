@@ -15,8 +15,8 @@
         <BoxView>
             <BoxView.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Color="#E8F5E9" Offset="0.0"/>
-                    <GradientStop Color="#F1F8E9" Offset="1.0"/>
+                    <GradientStop Color="#C8E6C9" Offset="0.0"/>
+                    <GradientStop Color="#DCEDC8" Offset="1.0"/>
                 </LinearGradientBrush>
             </BoxView.Background>
         </BoxView>
@@ -248,12 +248,11 @@
                         
                         <CollectionView ItemsSource="{Binding Riegos}">
                             <CollectionView.EmptyView>
-                                <Label Text="💧 Sin riegos registrados aún" 
-                                       TextColor="Black"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       Margin="0,20"/>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20" Spacing="10">
+                                    <Label Text="💧" FontSize="48" HorizontalOptions="Center"/>
+                                    <Label Text="Sin riegos registrados aún" TextColor="#1B5E20" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                    <Label Text="¡Registra el primer riego!" TextColor="#424242" FontSize="14" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
                             </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
@@ -468,12 +467,11 @@
 
                         <CollectionView ItemsSource="{Binding Cosechas}">
                             <CollectionView.EmptyView>
-                                <Label Text="🌾 Sin cosechas registradas aún" 
-                                       TextColor="Black"
-                                       FontSize="16"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       Margin="0,20"/>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20" Spacing="10">
+                                    <Label Text="🌾" FontSize="48" HorizontalOptions="Center"/>
+                                    <Label Text="Sin cosechas registradas aún" TextColor="#1B5E20" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                    <Label Text="¡Registra tu primera cosecha!" TextColor="#424242" FontSize="14" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
                             </CollectionView.EmptyView>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>

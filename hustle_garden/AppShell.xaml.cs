@@ -2,8 +2,14 @@
 
 namespace hustle_garden
 {
+    /// <summary>
+    /// Shell principal de la aplicación que maneja la navegación.
+    /// </summary>
     public partial class AppShell : Shell
     {
+        /// <summary>
+        /// Inicializa una nueva instancia de AppShell y registra las rutas de navegación.
+        /// </summary>
         public AppShell()
         {
             InitializeComponent();

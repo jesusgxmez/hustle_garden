@@ -1,0 +1,8 @@
+# Directorios generados por DocFX
+api/
+_site/
+obj/
+log.txt
+
+# Archivos temporales
+*.log

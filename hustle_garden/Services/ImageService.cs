@@ -1,14 +1,42 @@
 namespace HuertoApp.Services;
 
+/// <summary>
+/// Interfaz para servicios de manejo de imágenes (captura, selección y gestión).
+/// </summary>
 public interface IImageService
 {
+    /// <summary>
+    /// Captura una foto usando la cámara del dispositivo.
+    /// </summary>
+    /// <returns>Resultado de la operación con la ruta de la imagen o error.</returns>
     Task<ImageResult> CapturePhotoAsync();
+    /// <summary>
+    /// Permite al usuario seleccionar una foto de la galería.
+    /// </summary>
+    /// <returns>Resultado de la operación con la ruta de la imagen o error.</returns>
     Task<ImageResult> PickPhotoAsync();
+    /// <summary>
+    /// Permite al usuario seleccionar una imagen del sistema de archivos.
+    /// </summary>
+    /// <returns>Resultado de la operación con la ruta de la imagen o error.</returns>
     Task<ImageResult> PickPhotoFromFileSystemAsync();
+    /// <summary>
+    /// Elimina una imagen del sistema de archivos.
+    /// </summary>
+    /// <param name="path">Ruta de la imagen a eliminar.</param>
+    /// <returns>True si se eliminó correctamente, false en caso contrario.</returns>
     Task<bool> DeleteImageAsync(string path);
+    /// <summary>
+    /// Obtiene la ruta de visualización de una imagen, retornando una imagen por defecto si no existe.
+    /// </summary>
+    /// <param name="path">Ruta de la imagen.</param>
+    /// <returns>Ruta de la imagen o ruta de imagen por defecto.</returns>
     string GetImageDisplayPath(string path);
 }
 
+/// <summary>
+/// Implementación del servicio de manejo de imágenes.
+/// </summary>
 public class ImageService : IImageService
 {
     private const long MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -162,11 +190,26 @@ public class ImageService : IImageService
     }
 }
 
+/// <summary>
+/// Representa el resultado de una operación de manejo de imágenes.
+/// </summary>
 public class ImageResult
 {
+    /// <summary>
+    /// Indica si la operación fue exitosa.
+    /// </summary>
     public bool IsSuccess { get; private set; }
+    /// <summary>
+    /// Indica si el usuario canceló la operación.
+    /// </summary>
     public bool IsCancelled { get; private set; }
+    /// <summary>
+    /// Ruta de la imagen resultante.
+    /// </summary>
     public string ImagePath { get; private set; }
+    /// <summary>
+    /// Mensaje de error en caso de fallo.
+    /// </summary>
     public string ErrorMessage { get; private set; }
 
     private ImageResult(bool isSuccess, bool isCancelled, string imagePath = "", string errorMessage = "")
@@ -177,7 +220,21 @@ public class ImageResult
         ErrorMessage = errorMessage;
     }
 
+    /// <summary>
+    /// Crea un resultado exitoso con la ruta de la imagen.
+    /// </summary>
+    /// <param name="imagePath">Ruta de la imagen.</param>
+    /// <returns>Resultado exitoso.</returns>
     public static ImageResult Success(string imagePath) => new ImageResult(true, false, imagePath);
+    /// <summary>
+    /// Crea un resultado de fallo con un mensaje de error.
+    /// </summary>
+    /// <param name="errorMessage">Mensaje de error.</param>
+    /// <returns>Resultado de fallo.</returns>
     public static ImageResult Failure(string errorMessage) => new ImageResult(false, false, "", errorMessage);
+    /// <summary>
+    /// Crea un resultado indicando que el usuario canceló la operación.
+    /// </summary>
+    /// <returns>Resultado de cancelación.</returns>
     public static ImageResult Cancelled() => new ImageResult(false, true);
 }

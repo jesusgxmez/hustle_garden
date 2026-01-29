@@ -2,16 +2,60 @@ using System.Text.RegularExpressions;
 
 namespace HuertoApp.Services;
 
+/// <summary>
+/// Interfaz para servicios de validación de datos de entrada.
+/// </summary>
 public interface IValidationService
 {
+    /// <summary>
+    /// Valida el nombre de una planta.
+    /// </summary>
+    /// <param name="nombre">Nombre de la planta a validar.</param>
+    /// <returns>Resultado de la validación.</returns>
     ValidationResult ValidatePlantName(string nombre);
+    /// <summary>
+    /// Valida que un número esté dentro de un rango especificado.
+    /// </summary>
+    /// <param name="value">Valor a validar.</param>
+    /// <param name="min">Valor mínimo permitido.</param>
+    /// <param name="max">Valor máximo permitido.</param>
+    /// <param name="fieldName">Nombre del campo para mensajes de error.</param>
+    /// <returns>Resultado de la validación.</returns>
     ValidationResult ValidateNumberInRange(double value, double min, double max, string fieldName);
+    /// <summary>
+    /// Valida que un número sea positivo y válido.
+    /// </summary>
+    /// <param name="value">Valor a validar.</param>
+    /// <param name="fieldName">Nombre del campo para mensajes de error.</param>
+    /// <returns>Resultado de la validación.</returns>
     ValidationResult ValidatePositiveNumber(double value, string fieldName);
+    /// <summary>
+    /// Valida que una cadena de texto no esté vacía.
+    /// </summary>
+    /// <param name="value">Cadena a validar.</param>
+    /// <param name="fieldName">Nombre del campo para mensajes de error.</param>
+    /// <returns>Resultado de la validación.</returns>
     ValidationResult ValidateNotEmpty(string value, string fieldName);
+    /// <summary>
+    /// Valida que una fecha esté dentro de un rango especificado.
+    /// </summary>
+    /// <param name="date">Fecha a validar.</param>
+    /// <param name="minDate">Fecha mínima permitida (opcional).</param>
+    /// <param name="maxDate">Fecha máxima permitida (opcional).</param>
+    /// <param name="fieldName">Nombre del campo para mensajes de error.</param>
+    /// <returns>Resultado de la validación.</returns>
     ValidationResult ValidateDateRange(DateTime date, DateTime? minDate, DateTime? maxDate, string fieldName);
+    /// <summary>
+    /// Valida la ruta de una imagen (existencia, formato y tamaño).
+    /// </summary>
+    /// <param name="path">Ruta de la imagen a validar.</param>
+    /// <returns>Resultado de la validación.</returns>
     ValidationResult ValidateImagePath(string path);
 }
 
+/// <summary>
+/// Implementación del servicio de validación de datos de entrada.
+/// </summary>
 public class ValidationService : IValidationService
 {
     private const int MAX_PLANT_NAME_LENGTH = 100;
@@ -126,6 +170,11 @@ public class ValidationService : IValidationService
         return ValidationResult.Success();
     }
 
+    /// <summary>
+    /// Valida el número de días hasta la cosecha.
+    /// </summary>
+    /// <param name="days">Número de días a validar.</param>
+    /// <returns>Resultado de la validación.</returns>
     public static ValidationResult ValidateDaysToHarvest(int days)
     {
         if (days < 0)
@@ -141,6 +190,11 @@ public class ValidationService : IValidationService
         return ValidationResult.Success();
     }
 
+    /// <summary>
+    /// Valida la cantidad de agua para un riego.
+    /// </summary>
+    /// <param name="liters">Cantidad de agua en litros a validar.</param>
+    /// <returns>Resultado de la validación.</returns>
     public static ValidationResult ValidateWaterAmount(double liters)
     {
         if (liters <= 0)
@@ -161,6 +215,11 @@ public class ValidationService : IValidationService
         return ValidationResult.Success();
     }
 
+    /// <summary>
+    /// Valida la cantidad cosechada.
+    /// </summary>
+    /// <param name="kg">Cantidad cosechada en kilogramos a validar.</param>
+    /// <returns>Resultado de la validación.</returns>
     public static ValidationResult ValidateHarvestAmount(double kg)
     {
         if (kg <= 0)
@@ -182,9 +241,18 @@ public class ValidationService : IValidationService
     }
 }
 
+/// <summary>
+/// Representa el resultado de una operación de validación.
+/// </summary>
 public class ValidationResult
 {
+    /// <summary>
+    /// Indica si la validación fue exitosa.
+    /// </summary>
     public bool IsValid { get; private set; }
+    /// <summary>
+    /// Mensaje de error en caso de validación fallida.
+    /// </summary>
     public string ErrorMessage { get; private set; }
 
     private ValidationResult(bool isValid, string errorMessage = "")
@@ -193,6 +261,15 @@ public class ValidationResult
         ErrorMessage = errorMessage;
     }
 
+    /// <summary>
+    /// Crea un resultado de validación exitosa.
+    /// </summary>
+    /// <returns>Resultado de validación exitosa.</returns>
     public static ValidationResult Success() => new ValidationResult(true);
+    /// <summary>
+    /// Crea un resultado de validación fallida con un mensaje de error.
+    /// </summary>
+    /// <param name="errorMessage">Mensaje de error que describe el problema.</param>
+    /// <returns>Resultado de validación fallida.</returns>
     public static ValidationResult Failure(string errorMessage) => new ValidationResult(false, errorMessage);
 }

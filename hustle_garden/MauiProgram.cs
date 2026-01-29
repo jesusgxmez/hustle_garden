@@ -6,8 +6,16 @@ using Microsoft.Extensions.Logging;
 
 namespace hustle_garden
 {
+    /// <summary>
+    /// Clase de configuración de la aplicación MAUI.
+    /// Configura servicios de dependencia, ViewModels y páginas.
+    /// </summary>
     public static class MauiProgram
     {
+        /// <summary>
+        /// Crea y configura la aplicación MAUI.
+        /// </summary>
+        /// <returns>Aplicación MAUI configurada.</returns>
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();

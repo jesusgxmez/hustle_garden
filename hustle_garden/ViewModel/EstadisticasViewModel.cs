@@ -7,6 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HuertoApp.ViewModels;
 
+/// <summary>
+/// ViewModel para la visualización de estadísticas del huerto.
+/// Muestra métricas agregadas, cosechas por mes y plantas más productivas.
+/// </summary>
 [AddINotifyPropertyChangedInterface]
 public class EstadisticasViewModel
 {
@@ -88,17 +92,38 @@ public class EstadisticasViewModel
     }
 }
 
+/// <summary>
+/// Representa datos estadísticos mensuales de cosechas.
+/// </summary>
 [AddINotifyPropertyChangedInterface]
 public class EstadisticaMensual
 {
+    /// <summary>
+    /// Mes en formato "MM/YYYY".
+    /// </summary>
     public string Mes { get; set; }
+    /// <summary>
+    /// Cantidad total cosechada en el mes (kg).
+    /// </summary>
     public double Cantidad { get; set; }
 }
 
+/// <summary>
+/// Representa datos de productividad de una planta.
+/// </summary>
 [AddINotifyPropertyChangedInterface]
 public class PlantaMasProductiva
 {
+    /// <summary>
+    /// Nombre de la planta.
+    /// </summary>
     public string NombrePlanta { get; set; }
+    /// <summary>
+    /// Total de kilogramos cosechados de esta planta.
+    /// </summary>
     public double TotalKg { get; set; }
+    /// <summary>
+    /// Número de cosechas realizadas.
+    /// </summary>
     public int NumeroCosechas { get; set; }
 }

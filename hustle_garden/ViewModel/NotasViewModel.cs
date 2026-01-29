@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HuertoApp.ViewModels;
 
+/// <summary>
+/// ViewModel para la gestión de notas del huerto.
+/// Maneja creación, visualización y eliminación de notas con categorías.
+/// </summary>
 [AddINotifyPropertyChangedInterface]
 public class NotasViewModel
 {
