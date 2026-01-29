@@ -40,12 +40,54 @@
 							</CollectionView.EmptyView>
 							<CollectionView.ItemTemplate>
 								<DataTemplate>
-									<Border BackgroundColor="#FFFDE7" Margin="0,5" Padding="10" StrokeShape="RoundRectangle 10">
+									<Border BackgroundColor="#FFFDE7" Margin="0,5" Padding="12" StrokeShape="RoundRectangle 10">
 										<Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
-											<CheckBox Grid.Column="0" IsChecked="{Binding Completada, Mode=OneWay}" CheckedChanged="OnCheckboxChanged" Color="#4CAF50"/>
-											<VerticalStackLayout Grid.Column="1">
+											<CheckBox Grid.Column="0" IsChecked="{Binding Completada, Mode=OneWay}" CheckedChanged="OnCheckboxChanged" Color="#4CAF50" VerticalOptions="Start" Margin="0,5,0,0"/>
+											<VerticalStackLayout Grid.Column="1" Spacing="6">
 												<Label Text="{Binding Titulo}" FontAttributes="Bold" FontSize="16" TextColor="Black"/>
 												<Label Text="{Binding Descripcion}" FontSize="13" TextColor="#333" IsVisible="{Binding Descripcion, Converter={StaticResource StringNotNullOrEmptyConverter}}"/>
+												
+												<!-- Badges de Prioridad y Planta -->
+												<HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+													<!-- Badge de Prioridad -->
+													<Border Padding="8,4" StrokeShape="RoundRectangle 8" StrokeThickness="0">
+														<Border.Triggers>
+															<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Urgente">
+																<Setter Property="BackgroundColor" Value="#D32F2F"/>
+															</DataTrigger>
+															<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Alta">
+																<Setter Property="BackgroundColor" Value="#F57C00"/>
+															</DataTrigger>
+															<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Media">
+																<Setter Property="BackgroundColor" Value="#FBC02D"/>
+															</DataTrigger>
+															<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Baja">
+																<Setter Property="BackgroundColor" Value="#388E3C"/>
+															</DataTrigger>
+														</Border.Triggers>
+														<Label FontSize="11" FontAttributes="Bold" TextColor="White">
+															<Label.Triggers>
+																<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Urgente">
+																	<Setter Property="Text" Value="🔴 URGENTE"/>
+																</DataTrigger>
+																<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Alta">
+																	<Setter Property="Text" Value="🟠 ALTA"/>
+																</DataTrigger>
+																<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Media">
+																	<Setter Property="Text" Value="🟡 MEDIA"/>
+																</DataTrigger>
+																<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Baja">
+																	<Setter Property="Text" Value="🟢 BAJA"/>
+																</DataTrigger>
+															</Label.Triggers>
+														</Label>
+													</Border>
+													
+													<!-- Badge de Planta -->
+													<Border Padding="8,4" StrokeShape="RoundRectangle 8" BackgroundColor="#4CAF50" StrokeThickness="0" IsVisible="{Binding Planta, Converter={StaticResource IsNotNullConverter}}">
+														<Label Text="{Binding Planta.Nombre, StringFormat='🌱 {0}'}" FontSize="11" FontAttributes="Bold" TextColor="White"/>
+													</Border>
+												</HorizontalStackLayout>
 											</VerticalStackLayout>
 										</Grid>
 									</Border>
@@ -72,10 +114,52 @@
 							</CollectionView.EmptyView>
 							<CollectionView.ItemTemplate>
 								<DataTemplate>
-									<Border BackgroundColor="White" Margin="0,5" Padding="10" StrokeShape="RoundRectangle 10" Stroke="#C8E6C9">
-										<VerticalStackLayout>
+									<Border BackgroundColor="White" Margin="0,5" Padding="12" StrokeShape="RoundRectangle 10" Stroke="#C8E6C9">
+										<VerticalStackLayout Spacing="6">
 											<Label Text="{Binding Titulo}" FontAttributes="Bold" FontSize="15" TextDecorations="Strikethrough" TextColor="#666"/>
 											<Label Text="{Binding Descripcion}" FontSize="12" TextDecorations="Strikethrough" TextColor="#999" IsVisible="{Binding Descripcion, Converter={StaticResource StringNotNullOrEmptyConverter}}"/>
+											
+											<!-- Badges de Prioridad y Planta -->
+											<HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+												<!-- Badge de Prioridad -->
+												<Border Padding="8,4" StrokeShape="RoundRectangle 8" StrokeThickness="0" Opacity="0.7">
+													<Border.Triggers>
+														<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Urgente">
+															<Setter Property="BackgroundColor" Value="#D32F2F"/>
+														</DataTrigger>
+														<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Alta">
+															<Setter Property="BackgroundColor" Value="#F57C00"/>
+														</DataTrigger>
+														<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Media">
+															<Setter Property="BackgroundColor" Value="#FBC02D"/>
+														</DataTrigger>
+														<DataTrigger TargetType="Border" Binding="{Binding Prioridad}" Value="Baja">
+															<Setter Property="BackgroundColor" Value="#388E3C"/>
+														</DataTrigger>
+													</Border.Triggers>
+													<Label FontSize="11" FontAttributes="Bold" TextColor="White">
+														<Label.Triggers>
+															<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Urgente">
+																<Setter Property="Text" Value="🔴 URGENTE"/>
+															</DataTrigger>
+															<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Alta">
+																<Setter Property="Text" Value="🟠 ALTA"/>
+															</DataTrigger>
+															<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Media">
+																<Setter Property="Text" Value="🟡 MEDIA"/>
+															</DataTrigger>
+															<DataTrigger TargetType="Label" Binding="{Binding Prioridad}" Value="Baja">
+																<Setter Property="Text" Value="🟢 BAJA"/>
+															</DataTrigger>
+														</Label.Triggers>
+													</Label>
+												</Border>
+												
+												<!-- Badge de Planta -->
+												<Border Padding="8,4" StrokeShape="RoundRectangle 8" BackgroundColor="#4CAF50" StrokeThickness="0" Opacity="0.7" IsVisible="{Binding Planta, Converter={StaticResource IsNotNullConverter}}">
+													<Label Text="{Binding Planta.Nombre, StringFormat='🌱 {0}'}" FontSize="11" FontAttributes="Bold" TextColor="White"/>
+												</Border>
+											</HorizontalStackLayout>
 										</VerticalStackLayout>
 									</Border>
 								</DataTemplate>
