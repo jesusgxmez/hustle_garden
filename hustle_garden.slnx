@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="HuertoApp.Core/HuertoApp.Core.csproj" />
+  <Project Path="hustle_garden.Tests/hustle_garden.Tests.csproj" />
   <Project Path="hustle_garden/hustle_garden.csproj" />
 </Solution>

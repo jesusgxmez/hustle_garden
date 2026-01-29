@@ -36,6 +36,8 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		
+		<!-- Deshabilitar generaci�n autom�tica de Program para MSTest -->
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -90,6 +92,14 @@
 	  <MauiXaml Update="Views\TareasPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Tests\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\HuertoApp.Core\HuertoApp.Core.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,31 @@
+using System.ComponentModel.DataAnnotations;
+using PropertyChanged;
+
+namespace HuertoApp.Models;
+
+[AddINotifyPropertyChangedInterface]
+public class Tarea
+{
+    [Key]
+    public int Id { get; set; }
+    public int? PlantaId { get; set; }
+    public string Titulo { get; set; } = string.Empty;
+    public string? Descripcion { get; set; }
+    public DateTime FechaCreacion { get; set; }
+    public DateTime? FechaVencimiento { get; set; }
+    public bool Completada { get; set; }
+    public PrioridadTarea Prioridad { get; set; } = PrioridadTarea.Media;
+    
+    public Planta? Planta { get; set; }
+    
+    public bool EstaVencida => FechaVencimiento.HasValue && FechaVencimiento.Value < DateTime.Now && !Completada;
+}
+
+public enum PrioridadTarea
+{
+    Baja,
+    Media,
+    Alta,
+    Urgente
+}
+
