@@ -276,7 +276,6 @@ dotnet test
 
 ---
 
-## 🗺️ Roadmap
 
 ### 🎯 Versión Actual (v1.0)
 - ✅ CRUD completo de plantas
@@ -287,84 +286,9 @@ dotnet test
 - ✅ Estadísticas básicas
 - ✅ Documentación completa
 
-### 🚧 Próximas Versiones
-
-#### v1.1 - Mejoras de Productividad
-- [ ] Recordatorios con notificaciones locales
-- [ ] Modo oscuro
-- [ ] Exportar datos (CSV, Excel)
-- [ ] Búsqueda y filtros avanzados
-
-#### v1.2 - Análisis Avanzado
-- [ ] Gráficos interactivos (charts)
-- [ ] Predicciones de cosecha con IA
-- [ ] Comparativas entre temporadas
-- [ ] Reportes PDF
-
-#### v1.3 - Social y Cloud
-- [ ] Sincronización en la nube
-- [ ] Compartir en redes sociales
-- [ ] Comunidad de horticultores
-- [ ] Base de datos de plantas (wiki)
-
-#### v2.0 - Profesional
-- [ ] Calendario de siembra según clima
-- [ ] Geolocalización del huerto
-- [ ] Sensores IoT
-- [ ] Modo multi-huerto
-- [ ] Análisis de suelo
 
 ---
 
-## 🤝 Contribuir
-
-¡Las contribuciones son bienvenidas! Si deseas contribuir:
-
-1. 🍴 Haz un fork del proyecto
-2. 🌿 Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. 💾 Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. 📤 Push a la rama (`git push origin feature/AmazingFeature`)
-5. 🔃 Abre un Pull Request
-
-### Guías de Contribución
-
-- Mantén el código limpio y documentado
-- Sigue el patrón MVVM
-- Agrega comentarios XML a clases y métodos públicos
-- Escribe tests para nuevas funcionalidades
-- Actualiza la documentación según corresponda
-
----
-
-## 📋 Convenciones de Código
-
-- **C#:** Seguir las [convenciones de C#](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
-- **XAML:** Indentación de 4 espacios
-- **Comentarios:** XML comments para documentación
-- **Commits:** Mensajes descriptivos en español
-
----
-
-## 🐛 Reportar Bugs
-
-Si encuentras un bug, por favor [abre un issue](https://github.com/jesusgxmez/hustle_garden/issues) con:
-
-- 📝 Descripción detallada del problema
-- 🔄 Pasos para reproducirlo
-- 📱 Plataforma y versión del OS
-- 📸 Capturas de pantalla si es posible
-- 📋 Logs o mensajes de error
-
----
-
-## 📞 Contacto
-
-**Desarrollador:** Jesús Gómez
-
-- GitHub: [@jesusgxmez](https://github.com/jesusgxmez)
-- Proyecto: [hustle_garden](https://github.com/jesusgxmez/hustle_garden)
-
----
 
 ## 👥 Autores
 
@@ -373,20 +297,6 @@ Si encuentras un bug, por favor [abre un issue](https://github.com/jesusgxmez/hu
 * **Daniel Morales** - [@danielzetazz](https://github.com/danielzetazz)
 * **Iván Tejero** - [@tjerito](https://github.com/tjerito)
 
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
-
----
-
-## 🙏 Agradecimientos
-
-- 🎨 Comunidad de .NET MAUI
-- 📚 Documentación de Microsoft
-- 🌱 Inspirado en la pasión por la horticultura sostenible
-- 💚 A todos los que cultivan sus propios alimentos
 
 ---
 
@@ -404,21 +314,4 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 ---
 
-## 📚 Recursos Adicionales
 
-- [Documentación de .NET MAUI](https://docs.microsoft.com/dotnet/maui/)
-- [Entity Framework Core](https://docs.microsoft.com/ef/core/)
-- [SQLite](https://www.sqlite.org/)
-- [Patrón MVVM](https://docs.microsoft.com/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
-
----
-
-<div align="center">
-
-**Hecho con 💚 por horticultores, para horticultores**
-
-⭐ Si te gusta este proyecto, ¡dale una estrella!
-
-[⬆ Volver arriba](#-hustle-garden---aplicación-de-gestión-de-huerto)
-
-</div>
